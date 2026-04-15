@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>汉字练习 · Chinese Practice</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --red:     #c0392b;
@@ -45,13 +45,13 @@
       box-shadow: 0 2px 12px rgba(192,57,43,0.08);
     }
     .logo-char {
-      font-family: 'Noto Serif SC', serif;
-      font-size: 46px; font-weight: 900;
+      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+      font-size: 46px; font-weight: 400;
       color: var(--red); line-height: 1;
     }
     .logo-text h1 {
-      font-family: 'Noto Serif SC', serif;
-      font-size: 22px; font-weight: 700;
+      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+      font-size: 22px; font-weight: 400;
       color: var(--text); letter-spacing: 2px;
     }
     .logo-text p { font-size: 12px; color: var(--muted); margin-top: 2px; letter-spacing: 1px; }
@@ -111,7 +111,7 @@
       border: 1.5px solid var(--border);
       border-radius: 10px;
       padding: 16px;
-      font-family: 'Noto Serif SC', serif;
+      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
       font-size: 20px;
       color: var(--text);
       line-height: 1.9;
@@ -149,20 +149,24 @@
 
     /* ── WORD CHIPS ── */
     .chips-wrap {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px;
     }
     .chip {
-      display: inline-flex; align-items: center; gap: 6px;
+      display: flex; flex-direction: column; align-items: center;
       background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 20px; padding: 6px 14px;
-      font-size: 14px; color: var(--text);
+      border-radius: 12px; padding: 10px 14px 8px;
+      min-width: 72px; text-align: center; position: relative;
     }
-    .chip-char { font-family: 'Noto Serif SC', serif; font-size: 18px; font-weight: 600; color: var(--red); }
-    .chip-pinyin { color: var(--gold); font-size: 13px; }
-    .chip-meaning { color: var(--text2); font-size: 12px; }
+    .chip-char {
+      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+      font-size: 26px; font-weight: 400; color: var(--red); line-height: 1.1;
+    }
+    .chip-pinyin { color: var(--gold); font-size: 12px; margin-top: 3px; }
+    .chip-meaning { color: var(--text2); font-size: 11px; margin-top: 2px; max-width: 90px; word-break: break-word; }
     .chip-del {
+      position: absolute; top: 3px; right: 5px;
       background: none; border: none; cursor: pointer;
-      color: var(--muted); font-size: 16px; padding: 0 2px; line-height: 1;
+      color: var(--muted); font-size: 14px; padding: 0; line-height: 1;
       transition: color 0.15s;
     }
     .chip-del:hover { color: var(--red); }
@@ -200,8 +204,8 @@
     }
     .ex-label { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
     .ex-prompt {
-      font-family: 'Noto Serif SC', serif;
-      font-size: 64px; font-weight: 900; color: var(--red); line-height: 1.1;
+      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+      font-size: 72px; font-weight: 400; color: var(--red); line-height: 1.1;
     }
     .ex-prompt.sm { font-size: 36px; }
     .ex-prompt.pinyin { font-size: 38px; color: var(--gold); font-style: italic; }
@@ -211,7 +215,7 @@
       flex: 1; background: var(--bg);
       border: 2px solid var(--border); border-radius: 10px;
       padding: 13px 16px; color: var(--text);
-      font-family: 'Noto Serif SC', serif; font-size: 22px; text-align: center;
+      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif; font-size: 22px; text-align: center;
       outline: none; transition: border-color 0.2s;
     }
     .ex-input:focus { border-color: var(--red); }
@@ -249,8 +253,8 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
     .sentence-text {
-      font-family: 'Noto Serif SC', serif;
-      font-size: 28px; line-height: 1.9; color: var(--text); max-width: 560px;
+      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+      font-size: 30px; line-height: 1.9; color: var(--text); max-width: 560px;
     }
     .blank {
       display: inline-block; min-width: 70px;
@@ -262,7 +266,7 @@
     .fill-input {
       background: var(--bg); border: 2px solid var(--border);
       border-radius: 10px; padding: 13px 20px; color: var(--text);
-      font-family: 'Noto Serif SC', serif; font-size: 22px; text-align: center;
+      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif; font-size: 22px; text-align: center;
       width: 180px; outline: none; transition: border-color 0.2s;
     }
     .fill-input:focus { border-color: var(--red); }
@@ -320,21 +324,21 @@
     <div class="card">
       <div class="card-label">输入你想练习的词 · Enter your words</div>
 
-      <textarea class="word-textarea" id="word-input" placeholder="把要练习的汉字粘贴到这里，每行一个词
-格式：汉字, 拼音, 翻译
-例如：
-学习, xuéxí, to study
-朋友, péngyou, friend
-漂亮, piàoliang, beautiful
+      <textarea class="word-textarea" id="word-input" placeholder="Вставьте иероглифы — по одному слову на строку
+Формат: иероглиф, пиньинь, перевод на русском
+Например:
+飞机, fēijī, самолёт
+机场, jīchǎng, аэропорт
+护照, hùzhào, паспорт
 
-也可以只写汉字，每行一个：
-你好
-谢谢
-中国"></textarea>
+Или просто иероглифы, по одному на строку:
+飞机
+机场
+护照"></textarea>
 
       <div class="input-hint">
-        每行一个词 · One word per line<br>
-        格式：<b>汉字, 拼音, 翻译</b> — 或者只写汉字也可以
+        По одному слову на строку<br>
+        Формат: <b>иероглиф, пиньинь, перевод</b> — или просто иероглиф
       </div>
       <div class="input-actions">
         <button class="btn btn-red" onclick="loadWords()">✓ 保存词汇 · Save</button>
@@ -362,23 +366,23 @@
         <div class="modes-grid">
           <div class="mode-card selected" onclick="selectMode(this,'char-to-meaning')" data-mode="char-to-meaning">
             <div class="mode-icon">汉→？</div>
-            <div class="mode-title">看汉字，写翻译</div>
-            <div class="mode-desc">See character → write translation</div>
+            <div class="mode-title">Иероглиф → перевод</div>
+            <div class="mode-desc">Видишь иероглиф, пишешь перевод по-русски</div>
           </div>
           <div class="mode-card" onclick="selectMode(this,'meaning-to-char')" data-mode="meaning-to-char">
             <div class="mode-icon">？→汉</div>
-            <div class="mode-title">看翻译，写汉字</div>
-            <div class="mode-desc">See translation → write character</div>
+            <div class="mode-title">Перевод → иероглиф</div>
+            <div class="mode-desc">Видишь перевод, пишешь иероглиф</div>
           </div>
           <div class="mode-card" onclick="selectMode(this,'pinyin-to-char')" data-mode="pinyin-to-char">
             <div class="mode-icon">pīn→汉</div>
-            <div class="mode-title">看拼音，写汉字</div>
-            <div class="mode-desc">See pinyin → write character</div>
+            <div class="mode-title">Пиньинь → иероглиф</div>
+            <div class="mode-desc">Видишь пиньинь, пишешь иероглиф</div>
           </div>
           <div class="mode-card" onclick="selectMode(this,'char-to-pinyin')" data-mode="char-to-pinyin">
             <div class="mode-icon">汉→pīn</div>
-            <div class="mode-title">看汉字，写拼音</div>
-            <div class="mode-desc">See character → write pinyin</div>
+            <div class="mode-title">Иероглиф → пиньинь</div>
+            <div class="mode-desc">Видишь иероглиф, пишешь пиньинь</div>
           </div>
         </div>
         <button class="btn btn-red" style="width:100%;justify-content:center;padding:14px;font-size:15px" onclick="startPractice()">
@@ -463,67 +467,67 @@ let fillQueue = [], fIdx = 0, fScore = {c:0,w:0}, fAnswered = false;
 //  SENTENCE DATABASE
 // ─────────────────────────────────────────────
 const DB = [
-  {t:"我___水。",w:"喝",tr:"I drink water.",hsk:1},
-  {t:"她___茶。",w:"喝",tr:"She drinks tea.",hsk:1},
-  {t:"我是___。",w:"学生",tr:"I am a student.",hsk:1},
-  {t:"他___中文。",w:"学习",tr:"He studies Chinese.",hsk:1},
-  {t:"我___中文。",w:"学",tr:"I study Chinese.",hsk:1},
-  {t:"这个___很贵。",w:"苹果",tr:"This apple is expensive.",hsk:1},
-  {t:"我有一个___。",w:"朋友",tr:"I have a friend.",hsk:1},
-  {t:"你___吗？",w:"好",tr:"Are you okay?",hsk:1},
-  {t:"这是我的___。",w:"书",tr:"This is my book.",hsk:1},
-  {t:"我___你。",w:"爱",tr:"I love you.",hsk:1},
-  {t:"___很冷。",w:"今天",tr:"Today is very cold.",hsk:1},
-  {t:"你___哪里？",w:"去",tr:"Where are you going?",hsk:1},
-  {t:"我___吃饭。",w:"想",tr:"I want to eat.",hsk:1},
-  {t:"他___中国人。",w:"是",tr:"He is Chinese.",hsk:1},
-  {t:"我___三本书。",w:"有",tr:"I have three books.",hsk:1},
-  {t:"这个菜___好吃。",w:"很",tr:"This dish is very delicious.",hsk:1},
-  {t:"我___他是老师。",w:"知道",tr:"I know he is a teacher.",hsk:1},
-  {t:"她___汉语。",w:"说",tr:"She speaks Chinese.",hsk:1},
-  {t:"我每天___自行车去学校。",w:"骑",tr:"I ride a bicycle to school every day.",hsk:2},
-  {t:"她___一件红色的衣服。",w:"穿",tr:"She wears a red dress.",hsk:2},
-  {t:"他___说汉语很难。",w:"觉得",tr:"He thinks speaking Chinese is difficult.",hsk:2},
-  {t:"你的___在哪里？",w:"手机",tr:"Where is your phone?",hsk:2},
-  {t:"我___去北京了。",w:"已经",tr:"I have already been to Beijing.",hsk:2},
-  {t:"我___看书。",w:"喜欢",tr:"I like reading books.",hsk:2},
-  {t:"这个问题太___了。",w:"难",tr:"This question is too difficult.",hsk:2},
-  {t:"我___说中文。",w:"会",tr:"I can speak Chinese.",hsk:2},
-  {t:"我们___一起吃饭。",w:"应该",tr:"We should eat together.",hsk:2},
-  {t:"他___工作很忙。",w:"最近",tr:"He has been very busy with work lately.",hsk:2},
-  {t:"你___什么运动？",w:"喜欢",tr:"What sports do you like?",hsk:2},
-  {t:"我___他的名字。",w:"忘了",tr:"I forgot his name.",hsk:2},
-  {t:"她___很漂亮。",w:"真的",tr:"She is really beautiful.",hsk:2},
-  {t:"虽然他不喜欢，但是他___努力。",w:"很",tr:"Although he doesn't like it, he works very hard.",hsk:3},
-  {t:"我___这份工作很有意思。",w:"认为",tr:"I think this job is very interesting.",hsk:3},
-  {t:"她___每天练习中文。",w:"坚持",tr:"She persists in practicing Chinese every day.",hsk:3},
-  {t:"因为下雨，所以我没有___。",w:"出门",tr:"Because of rain, I didn't go out.",hsk:3},
-  {t:"这次考试比上次___多了。",w:"难",tr:"This exam is much harder than last time.",hsk:3},
-  {t:"请你___一下这个词的意思。",w:"解释",tr:"Please explain the meaning of this word.",hsk:3},
-  {t:"我___他是一个好人。",w:"相信",tr:"I believe he is a good person.",hsk:3},
-  {t:"她___一个人住在北京。",w:"一直",tr:"She has been living alone in Beijing.",hsk:3},
-  {t:"我们需要___这个问题。",w:"讨论",tr:"We need to discuss this issue.",hsk:3},
-  {t:"这个地方___很有名。",w:"非常",tr:"This place is extremely famous.",hsk:3},
-  {t:"他___很高的职位。",w:"担任",tr:"He holds a very high position.",hsk:4},
-  {t:"我们需要___这个计划。",w:"实施",tr:"We need to implement this plan.",hsk:4},
-  {t:"这项技术___了我们的生活。",w:"改变",tr:"This technology has changed our lives.",hsk:4},
-  {t:"她___地完成了这项任务。",w:"顺利",tr:"She completed the task smoothly.",hsk:4},
-  {t:"我们___到了很多困难。",w:"遇到",tr:"We encountered many difficulties.",hsk:4},
-  {t:"他对这件事___了自己的看法。",w:"表达",tr:"He expressed his views on this matter.",hsk:5},
-  {t:"这个___在国际上很有影响力。",w:"企业",tr:"This enterprise is very influential internationally.",hsk:5},
-  {t:"这项研究___了重要结果。",w:"取得",tr:"This research achieved important results.",hsk:5},
-  {t:"他的___让所有人都很感动。",w:"演讲",tr:"His speech moved everyone.",hsk:5},
-  {t:"这种现象___了深层次的社会问题。",w:"折射",tr:"This phenomenon reflects deep social problems.",hsk:6},
-  {t:"这部作品___了时代的精神。",w:"体现",tr:"This work embodies the spirit of the era.",hsk:6},
+  {t:"我___水。",w:"喝",tr:"Я пью воду.",hsk:1},
+  {t:"她___茶。",w:"喝",tr:"Она пьёт чай.",hsk:1},
+  {t:"我是___。",w:"学生",tr:"Я студент.",hsk:1},
+  {t:"他___中文。",w:"学习",tr:"Он учит китайский.",hsk:1},
+  {t:"我___中文。",w:"学",tr:"Я учу китайский.",hsk:1},
+  {t:"这个___很贵。",w:"苹果",tr:"Это яблоко очень дорогое.",hsk:1},
+  {t:"我有一个___。",w:"朋友",tr:"У меня есть один друг.",hsk:1},
+  {t:"你___吗？",w:"好",tr:"Ты в порядке?",hsk:1},
+  {t:"这是我的___。",w:"书",tr:"Это моя книга.",hsk:1},
+  {t:"我___你。",w:"爱",tr:"Я тебя люблю.",hsk:1},
+  {t:"___很冷。",w:"今天",tr:"Сегодня очень холодно.",hsk:1},
+  {t:"你___哪里？",w:"去",tr:"Куда ты идёшь?",hsk:1},
+  {t:"我___吃饭。",w:"想",tr:"Я хочу поесть.",hsk:1},
+  {t:"他___中国人。",w:"是",tr:"Он китаец.",hsk:1},
+  {t:"我___三本书。",w:"有",tr:"У меня три книги.",hsk:1},
+  {t:"这个菜___好吃。",w:"很",tr:"Это блюдо очень вкусное.",hsk:1},
+  {t:"我___他是老师。",w:"知道",tr:"Я знаю, что он учитель.",hsk:1},
+  {t:"她___汉语。",w:"说",tr:"Она говорит по-китайски.",hsk:1},
+  {t:"我每天___自行车去学校。",w:"骑",tr:"Я каждый день езжу в школу на велосипеде.",hsk:2},
+  {t:"她___一件红色的衣服。",w:"穿",tr:"Она носит красное платье.",hsk:2},
+  {t:"他___说汉语很难。",w:"觉得",tr:"Он думает, что говорить по-китайски трудно.",hsk:2},
+  {t:"你的___在哪里？",w:"手机",tr:"Где твой телефон?",hsk:2},
+  {t:"我___去北京了。",w:"已经",tr:"Я уже был в Пекине.",hsk:2},
+  {t:"我___看书。",w:"喜欢",tr:"Я люблю читать книги.",hsk:2},
+  {t:"这个问题太___了。",w:"难",tr:"Этот вопрос слишком сложный.",hsk:2},
+  {t:"我___说中文。",w:"会",tr:"Я умею говорить по-китайски.",hsk:2},
+  {t:"我们___一起吃饭。",w:"应该",tr:"Нам следует поесть вместе.",hsk:2},
+  {t:"他___工作很忙。",w:"最近",tr:"В последнее время он очень занят на работе.",hsk:2},
+  {t:"你___什么运动？",w:"喜欢",tr:"Какой спорт тебе нравится?",hsk:2},
+  {t:"我___他的名字。",w:"忘了",tr:"Я забыл его имя.",hsk:2},
+  {t:"她___很漂亮。",w:"真的",tr:"Она действительно очень красивая.",hsk:2},
+  {t:"虽然他不喜欢，但是他___努力。",w:"很",tr:"Хотя ему не нравится, он очень старается.",hsk:3},
+  {t:"我___这份工作很有意思。",w:"认为",tr:"Я считаю, что эта работа очень интересная.",hsk:3},
+  {t:"她___每天练习中文。",w:"坚持",tr:"Она каждый день упорно занимается китайским.",hsk:3},
+  {t:"因为下雨，所以我没有___。",w:"出门",tr:"Из-за дождя я не вышел на улицу.",hsk:3},
+  {t:"这次考试比上次___多了。",w:"难",tr:"Этот экзамен намного сложнее прошлого.",hsk:3},
+  {t:"请你___一下这个词的意思。",w:"解释",tr:"Пожалуйста, объясни значение этого слова.",hsk:3},
+  {t:"我___他是一个好人。",w:"相信",tr:"Я верю, что он хороший человек.",hsk:3},
+  {t:"她___一个人住在北京。",w:"一直",tr:"Она всё время живёт в Пекине одна.",hsk:3},
+  {t:"我们需要___这个问题。",w:"讨论",tr:"Нам нужно обсудить этот вопрос.",hsk:3},
+  {t:"这个地方___很有名。",w:"非常",tr:"Это место чрезвычайно знаменито.",hsk:3},
+  {t:"他___很高的职位。",w:"担任",tr:"Он занимает очень высокую должность.",hsk:4},
+  {t:"我们需要___这个计划。",w:"实施",tr:"Нам нужно реализовать этот план.",hsk:4},
+  {t:"这项技术___了我们的生活。",w:"改变",tr:"Эта технология изменила нашу жизнь.",hsk:4},
+  {t:"她___地完成了这项任务。",w:"顺利",tr:"Она успешно выполнила это задание.",hsk:4},
+  {t:"我们___到了很多困难。",w:"遇到",tr:"Мы столкнулись со многими трудностями.",hsk:4},
+  {t:"他对这件事___了自己的看法。",w:"表达",tr:"Он выразил своё мнение по этому вопросу.",hsk:5},
+  {t:"这个___在国际上很有影响力。",w:"企业",tr:"Это предприятие очень влиятельно на международном уровне.",hsk:5},
+  {t:"这项研究___了重要结果。",w:"取得",tr:"Это исследование достигло важных результатов.",hsk:5},
+  {t:"他的___让所有人都很感动。",w:"演讲",tr:"Его речь растрогала всех.",hsk:5},
+  {t:"这种现象___了深层次的社会问题。",w:"折射",tr:"Это явление отражает глубинные социальные проблемы.",hsk:6},
+  {t:"这部作品___了时代的精神。",w:"体现",tr:"Это произведение воплощает дух эпохи.",hsk:6},
 ];
 
 const TMPL = {
-  1:[{t:"我___。",tr:"I ___."},  {t:"他___。",tr:"He ___."},  {t:"你___吗？",tr:"Do you ___?"}],
-  2:[{t:"我每天___。",tr:"I ___ every day."}, {t:"你喜欢___吗？",tr:"Do you like ___?"}],
-  3:[{t:"我认为___很重要。",tr:"I think ___ is important."}, {t:"她坚持每天___。",tr:"She persists in ___ every day."}],
-  4:[{t:"随着发展，___越来越重要。",tr:"___ becomes increasingly important."}, {t:"他通过努力___了目标。",tr:"He achieved his goal through ___."}],
-  5:[{t:"在全球化背景下，___发挥着重要作用。",tr:"___ plays an important role globally."}, {t:"我们应当积极___，推动进步。",tr:"We should actively ___ to promote progress."}],
-  6:[{t:"从长远来看，___具有战略意义。",tr:"In the long run, ___ has strategic significance."}, {t:"这种___折射出社会深层次的矛盾。",tr:"This ___ reflects deep social contradictions."}],
+  1:[{t:"我___。",tr:"Я ___."},  {t:"他___。",tr:"Он ___."},  {t:"你___吗？",tr:"Ты ___?"}],
+  2:[{t:"我每天___。",tr:"Я каждый день ___."}, {t:"你喜欢___吗？",tr:"Тебе нравится ___?"}],
+  3:[{t:"我认为___很重要。",tr:"Я считаю, что ___ очень важно."}, {t:"她坚持每天___。",tr:"Она каждый день упорно ___."}],
+  4:[{t:"随着发展，___越来越重要。",tr:"По мере развития ___ становится всё важнее."}, {t:"他通过努力___了目标。",tr:"Он достиг цели благодаря усердию ___."}],
+  5:[{t:"在全球化背景下，___发挥着重要作用。",tr:"В условиях глобализации ___ играет важную роль."}, {t:"我们应当积极___，推动进步。",tr:"Нам следует активно ___, чтобы двигаться вперёд."}],
+  6:[{t:"从长远来看，___具有战略意义。",tr:"В долгосрочной перспективе ___ имеет стратегическое значение."}, {t:"这种___折射出社会深层次的矛盾。",tr:"Это ___ отражает глубинные противоречия общества."}],
 };
 
 // ─────────────────────────────────────────────
@@ -620,25 +624,25 @@ function showCard() {
   pr.className = 'ex-prompt';
 
   if (practiceMode === 'char-to-meaning') {
-    document.getElementById('ex-label').textContent = '看汉字，写翻译 · Write the translation';
+    document.getElementById('ex-label').textContent = 'Иероглиф → перевод на русском';
     pr.textContent = w.char;
     curAns = (w.meaning || '').toLowerCase();
-    inp.placeholder = '翻译 / translation...';
+    inp.placeholder = 'перевод...';
     inp.style.fontFamily = "'Noto Sans SC', sans-serif"; inp.style.fontSize = '18px';
   } else if (practiceMode === 'meaning-to-char') {
-    document.getElementById('ex-label').textContent = '看翻译，写汉字 · Write the character';
-    pr.textContent = w.meaning || '(no meaning)';
+    document.getElementById('ex-label').textContent = 'Перевод → иероглиф';
+    pr.textContent = w.meaning || '(нет перевода)';
     pr.className = 'ex-prompt meaning';
     curAns = w.char;
-    inp.placeholder = '汉字...'; inp.style.fontFamily = "'Noto Serif SC', serif"; inp.style.fontSize = '24px';
+    inp.placeholder = '汉字...'; inp.style.fontFamily = "'Ma Shan Zheng', 'Noto Serif SC', serif"; inp.style.fontSize = '24px';
   } else if (practiceMode === 'pinyin-to-char') {
-    document.getElementById('ex-label').textContent = '看拼音，写汉字 · Write the character';
-    pr.textContent = w.pinyin || '(no pinyin)';
+    document.getElementById('ex-label').textContent = 'Пиньинь → иероглиф';
+    pr.textContent = w.pinyin || '(нет пиньиня)';
     pr.className = 'ex-prompt pinyin';
     curAns = w.char;
-    inp.placeholder = '汉字...'; inp.style.fontFamily = "'Noto Serif SC', serif"; inp.style.fontSize = '24px';
+    inp.placeholder = '汉字...'; inp.style.fontFamily = "'Ma Shan Zheng', 'Noto Serif SC', serif"; inp.style.fontSize = '24px';
   } else {
-    document.getElementById('ex-label').textContent = '看汉字，写拼音 · Write the pinyin';
+    document.getElementById('ex-label').textContent = 'Иероглиф → пиньинь';
     pr.textContent = w.char;
     curAns = norm(w.pinyin || '');
     inp.placeholder = 'pīnyīn...'; inp.style.fontFamily = "'Noto Sans SC', sans-serif"; inp.style.fontSize = '20px';
