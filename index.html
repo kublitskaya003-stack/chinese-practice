@@ -221,9 +221,26 @@
     .ex-input:focus { border-color: var(--red); }
     .ex-input.correct { border-color: var(--green); background: var(--greenbg); color: var(--green); }
     .ex-input.wrong { border-color: var(--wrong); background: var(--wrongbg); color: var(--wrong); }
+    .ex-hint {
+      background: var(--goldbg); border: 1px solid #f0d080;
+      border-radius: 10px; padding: 10px 20px;
+      font-size: 13px; color: var(--text2);
+      text-align: center; max-width: 380px; width: 100%;
+    }
     .feedback { font-size: 14px; font-weight: 500; min-height: 20px; }
     .feedback.correct { color: var(--green); }
     .feedback.wrong { color: var(--red); }
+    .ex-answer-reveal {
+      background: var(--redbg); border: 1.5px solid var(--red);
+      border-radius: 12px; padding: 14px 22px; text-align: center;
+      max-width: 380px; width: 100%;
+    }
+    .ex-answer-reveal .rev-char {
+      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+      font-size: 40px; color: var(--red); line-height: 1.1;
+    }
+    .ex-answer-reveal .rev-pinyin { font-size: 14px; color: var(--gold); margin-top: 4px; }
+    .ex-answer-reveal .rev-meaning { font-size: 13px; color: var(--text2); margin-top: 3px; }
 
     .prog-row { display: flex; align-items: center; gap: 14px; width: 100%; }
     .prog-wrap { flex: 1; background: var(--bg2); border-radius: 6px; height: 6px; overflow: hidden; }
@@ -400,11 +417,13 @@
         </div>
         <div class="ex-label" id="ex-label"></div>
         <div class="ex-prompt" id="ex-prompt">—</div>
+        <div class="ex-hint" id="ex-hint" style="display:none"></div>
         <div class="ex-input-row">
           <input type="text" class="ex-input" id="ex-input" placeholder="写答案..." onkeydown="handleExKey(event)">
           <button class="btn btn-red" onclick="checkAnswer()">确认</button>
         </div>
         <div class="feedback" id="ex-feedback"></div>
+        <div class="ex-answer-reveal" id="ex-answer-reveal" style="display:none"></div>
         <button class="btn btn-outline btn-sm" id="next-btn" onclick="nextCard()" style="display:none">下一个 →</button>
         <button class="btn btn-outline btn-sm" onclick="endPractice()" style="margin-top:4px">⏹ 结束</button>
       </div>
@@ -614,6 +633,8 @@ function showCard() {
   document.getElementById('ex-feedback').textContent = '';
   document.getElementById('ex-feedback').className = 'feedback';
   document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('ex-hint').style.display = 'none';
+  document.getElementById('ex-answer-reveal').style.display = 'none';
 
   const pct = (qIdx / queue.length) * 100;
   document.getElementById('prog-bar').style.width = pct + '%';
@@ -623,29 +644,36 @@ function showCard() {
   const pr = document.getElementById('ex-prompt');
   pr.className = 'ex-prompt';
 
+  const hint = document.getElementById('ex-hint');
   if (practiceMode === 'char-to-meaning') {
     document.getElementById('ex-label').textContent = 'Иероглиф → перевод на русском';
     pr.textContent = w.char;
     curAns = (w.meaning || '').toLowerCase();
     inp.placeholder = 'перевод...';
     inp.style.fontFamily = "'Noto Sans SC', sans-serif"; inp.style.fontSize = '18px';
+    if (w.pinyin) { hint.textContent = w.pinyin; hint.style.display = 'block'; }
   } else if (practiceMode === 'meaning-to-char') {
-    document.getElementById('ex-label').textContent = 'Перевод → иероглиф';
-    pr.textContent = w.meaning || '(нет перевода)';
+    document.getElementById('ex-label').textContent = 'Напиши иероглиф для:';
+    const display = w.meaning || w.pinyin || '(нет перевода)';
+    pr.textContent = display;
     pr.className = 'ex-prompt meaning';
     curAns = w.char;
     inp.placeholder = '汉字...'; inp.style.fontFamily = "'Ma Shan Zheng', 'Noto Serif SC', serif"; inp.style.fontSize = '24px';
+    if (w.meaning && w.pinyin) { hint.textContent = '💡 ' + w.pinyin; hint.style.display = 'block'; }
+    else if (!w.meaning && w.pinyin) { hint.textContent = '⚠️ Перевод не добавлен — показан пиньинь'; hint.style.display = 'block'; }
   } else if (practiceMode === 'pinyin-to-char') {
     document.getElementById('ex-label').textContent = 'Пиньинь → иероглиф';
     pr.textContent = w.pinyin || '(нет пиньиня)';
     pr.className = 'ex-prompt pinyin';
     curAns = w.char;
     inp.placeholder = '汉字...'; inp.style.fontFamily = "'Ma Shan Zheng', 'Noto Serif SC', serif"; inp.style.fontSize = '24px';
+    if (w.meaning) { hint.textContent = '💡 ' + w.meaning; hint.style.display = 'block'; }
   } else {
     document.getElementById('ex-label').textContent = 'Иероглиф → пиньинь';
     pr.textContent = w.char;
     curAns = norm(w.pinyin || '');
     inp.placeholder = 'pīnyīn...'; inp.style.fontFamily = "'Noto Sans SC', sans-serif"; inp.style.fontSize = '20px';
+    if (w.meaning) { hint.textContent = '💡 ' + w.meaning; hint.style.display = 'block'; }
   }
   setTimeout(() => inp.focus(), 40);
 }
@@ -666,12 +694,18 @@ function checkAnswer() {
     ? curAns === val.toLowerCase().trim()
     : norm(val) === norm(curAns);
   const fb = document.getElementById('ex-feedback');
+  const w = queue[qIdx];
   if (ok) {
     score.c++; inp.classList.add('correct');
-    fb.textContent = '✓ 正确！Correct!'; fb.className = 'feedback correct';
+    fb.textContent = '✓ Правильно!'; fb.className = 'feedback correct';
   } else {
     score.w++; inp.classList.add('wrong');
-    fb.textContent = `✗ 答案是: ${curAns}`; fb.className = 'feedback wrong';
+    fb.textContent = '✗ Неверно'; fb.className = 'feedback wrong';
+    const rev = document.getElementById('ex-answer-reveal');
+    rev.innerHTML = `<div class="rev-char">${w.char}</div>` +
+      (w.pinyin ? `<div class="rev-pinyin">${w.pinyin}</div>` : '') +
+      (w.meaning ? `<div class="rev-meaning">${w.meaning}</div>` : '');
+    rev.style.display = 'block';
   }
   document.getElementById('score-disp').textContent = `✓ ${score.c}  ✗ ${score.w}`;
   document.getElementById('next-btn').style.display = 'inline-flex';
