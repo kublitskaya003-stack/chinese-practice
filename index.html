@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>汉字练习 · Chinese Practice</title>
-  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --red:     #c0392b;
@@ -111,14 +111,15 @@
       border: 1.5px solid var(--border);
       border-radius: 10px;
       padding: 16px;
-      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
-      font-size: 20px;
+      font-family: 'Noto Serif SC', serif;
+      font-size: 18px;
+      font-weight: 300;
       color: var(--text);
       line-height: 1.9;
       resize: vertical;
       outline: none;
       transition: border-color 0.2s;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
     }
     .word-textarea:focus { border-color: var(--red); }
     .word-textarea::placeholder { color: var(--muted); font-size: 15px; letter-spacing: 0; font-family: 'Noto Sans SC', sans-serif; }
@@ -158,8 +159,8 @@
       min-width: 72px; text-align: center; position: relative;
     }
     .chip-char {
-      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
-      font-size: 26px; font-weight: 400; color: var(--red); line-height: 1.1;
+      font-family: 'Noto Serif SC', serif;
+      font-size: 26px; font-weight: 300; color: var(--red); line-height: 1.1;
     }
     .chip-pinyin { color: var(--gold); font-size: 12px; margin-top: 3px; }
     .chip-meaning { color: var(--text2); font-size: 11px; margin-top: 2px; max-width: 90px; word-break: break-word; }
@@ -204,8 +205,8 @@
     }
     .ex-label { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
     .ex-prompt {
-      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
-      font-size: 72px; font-weight: 400; color: var(--red); line-height: 1.1;
+      font-family: 'Noto Serif SC', serif;
+      font-size: 72px; font-weight: 300; color: var(--red); line-height: 1.1;
     }
     .ex-prompt.sm { font-size: 36px; }
     .ex-prompt.pinyin { font-size: 38px; color: var(--gold); font-style: italic; }
@@ -215,8 +216,8 @@
       flex: 1; background: var(--bg);
       border: 2px solid var(--border); border-radius: 10px;
       padding: 13px 16px; color: var(--text);
-      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif; font-size: 22px; text-align: center;
-      outline: none; transition: border-color 0.2s;
+      font-family: 'Noto Serif SC', serif; font-size: 22px; text-align: center;
+      font-weight: 300; outline: none; transition: border-color 0.2s;
     }
     .ex-input:focus { border-color: var(--red); }
     .ex-input.correct { border-color: var(--green); background: var(--greenbg); color: var(--green); }
@@ -236,8 +237,8 @@
       max-width: 380px; width: 100%;
     }
     .ex-answer-reveal .rev-char {
-      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
-      font-size: 40px; color: var(--red); line-height: 1.1;
+      font-family: 'Noto Serif SC', serif;
+      font-size: 40px; font-weight: 300; color: var(--red); line-height: 1.1;
     }
     .ex-answer-reveal .rev-pinyin { font-size: 14px; color: var(--gold); margin-top: 4px; }
     .ex-answer-reveal .rev-meaning { font-size: 13px; color: var(--text2); margin-top: 3px; }
@@ -270,8 +271,8 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
     .sentence-text {
-      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
-      font-size: 30px; line-height: 1.9; color: var(--text); max-width: 560px;
+      font-family: 'Noto Serif SC', serif;
+      font-size: 30px; font-weight: 300; line-height: 1.9; color: var(--text); max-width: 560px;
     }
     .blank {
       display: inline-block; min-width: 70px;
@@ -283,8 +284,8 @@
     .fill-input {
       background: var(--bg); border: 2px solid var(--border);
       border-radius: 10px; padding: 13px 20px; color: var(--text);
-      font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif; font-size: 22px; text-align: center;
-      width: 180px; outline: none; transition: border-color 0.2s;
+      font-family: 'Noto Serif SC', serif; font-size: 22px; text-align: center;
+      font-weight: 300; width: 180px; outline: none; transition: border-color 0.2s;
     }
     .fill-input:focus { border-color: var(--red); }
     .fill-input.correct { border-color: var(--green); background: var(--greenbg); color: var(--green); }
@@ -304,6 +305,35 @@
     /* ── DIVIDER ── */
     .divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: var(--muted); font-size: 12px; }
     .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── CHIP EDITING ── */
+    .chip-actions {
+      display: flex; gap: 4px;
+      position: absolute; top: 3px; right: 3px;
+    }
+    .chip-edit-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: 13px; padding: 1px 3px; line-height: 1;
+      transition: color 0.15s;
+    }
+    .chip-edit-btn:hover { color: var(--gold); }
+    .chip-del { position: static; }
+    .chip-edit-panel {
+      display: flex; flex-direction: column; gap: 4px; width: 100%; margin-top: 4px;
+    }
+    .chip-edit-input {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 6px; padding: 4px 7px; font-size: 12px;
+      color: var(--text); outline: none; width: 100%; min-width: 90px;
+      font-family: 'Noto Sans SC', sans-serif;
+    }
+    .chip-edit-input:focus { border-color: var(--red); }
+    .chip-edit-btns { display: flex; gap: 4px; justify-content: flex-end; }
+    .chip-save-btn {
+      background: var(--green); color: #fff; border: none; border-radius: 5px;
+      padding: 3px 8px; font-size: 12px; cursor: pointer;
+    }
+    .chip.editing { min-width: 120px; padding: 10px; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
@@ -474,6 +504,171 @@
 
 <script>
 // ─────────────────────────────────────────────
+//  DICTIONARY (HSK 1-3 + Travel)
+// ─────────────────────────────────────────────
+const DICT = {
+  '爱':['ài','любить'],'八':['bā','восемь'],'爸爸':['bàba','папа'],
+  '杯子':['bēizi','стакан'],'北京':['Běijīng','Пекин'],
+  '不':['bù','не/нет'],'菜':['cài','блюдо/овощ'],'茶':['chá','чай'],
+  '吃':['chī','есть/кушать'],'出租车':['chūzūchē','такси'],
+  '大':['dà','большой'],'的':['de','(частица)'],
+  '电脑':['diànnǎo','компьютер'],'电视':['diànshì','телевизор'],
+  '电影':['diànyǐng','кино/фильм'],'东西':['dōngxi','вещь'],
+  '都':['dōu','всё/все'],'读':['dú','читать'],
+  '对不起':['duìbuqǐ','извините'],'多':['duō','много'],
+  '多少':['duōshao','сколько'],'儿子':['érzi','сын'],
+  '二':['èr','два'],'飞机':['fēijī','самолёт'],
+  '分钟':['fēnzhōng','минута'],'高兴':['gāoxìng','радостный'],
+  '个':['gè','(счётное слово)'],'工作':['gōngzuò','работа'],
+  '狗':['gǒu','собака'],'汉语':['Hànyǔ','китайский язык'],
+  '好':['hǎo','хороший'],'好吃':['hǎochī','вкусный'],
+  '喝':['hē','пить'],'和':['hé','и/с'],'很':['hěn','очень'],
+  '回':['huí','возвращаться'],'会':['huì','уметь/мочь'],
+  '几':['jǐ','сколько'],'家':['jiā','дом/семья'],
+  '叫':['jiào','звать/называться'],'今天':['jīntiān','сегодня'],
+  '九':['jiǔ','девять'],'开':['kāi','открывать'],
+  '看':['kàn','смотреть'],'来':['lái','приходить'],
+  '老师':['lǎoshī','учитель'],'冷':['lěng','холодный'],
+  '里':['lǐ','внутри'],'六':['liù','шесть'],
+  '妈妈':['māma','мама'],'买':['mǎi','покупать'],
+  '猫':['māo','кошка'],'没':['méi','нет (отрицание)'],
+  '米饭':['mǐfàn','варёный рис'],'名字':['míngzi','имя'],
+  '明天':['míngtiān','завтра'],'哪':['nǎ','который/где'],
+  '那':['nà','тот/та/то'],'能':['néng','мочь'],
+  '你':['nǐ','ты'],'年':['nián','год'],
+  '女儿':['nǚér','дочь'],'朋友':['péngyou','друг'],
+  '漂亮':['piàoliang','красивый'],'苹果':['píngguǒ','яблоко'],
+  '七':['qī','семь'],'钱':['qián','деньги'],
+  '请':['qǐng','пожалуйста'],'去':['qù','идти/ехать'],
+  '热':['rè','горячий'],'人':['rén','человек'],
+  '认识':['rènshi','знать/знакомиться'],'三':['sān','три'],
+  '商店':['shāngdiàn','магазин'],'上':['shàng','на/вверх'],
+  '少':['shǎo','мало'],'谁':['shéi','кто'],
+  '什么':['shénme','что/какой'],'时候':['shíhou','время'],
+  '是':['shì','быть'],'书':['shū','книга'],
+  '水':['shuǐ','вода'],'水果':['shuǐguǒ','фрукты'],
+  '睡觉':['shuìjiào','спать'],'说':['shuō','говорить'],
+  '四':['sì','четыре'],'岁':['suì','лет (возраст)'],
+  '他':['tā','он'],'她':['tā','она'],
+  '太':['tài','слишком'],'天气':['tiānqì','погода'],
+  '听':['tīng','слушать'],'同学':['tóngxué','одноклассник'],
+  '我':['wǒ','я'],'我们':['wǒmen','мы'],
+  '五':['wǔ','пять'],'下午':['xiàwǔ','после полудня'],
+  '先生':['xiānsheng','господин'],'现在':['xiànzài','сейчас'],
+  '想':['xiǎng','думать/хотеть'],'小':['xiǎo','маленький'],
+  '写':['xiě','писать'],'谢谢':['xièxie','спасибо'],
+  '学生':['xuésheng','студент'],'学习':['xuéxí','учиться'],
+  '学校':['xuéxiào','школа'],'一':['yī','один'],
+  '衣服':['yīfu','одежда'],'医生':['yīshēng','врач'],
+  '医院':['yīyuàn','больница'],'有':['yǒu','иметь/есть'],
+  '月':['yuè','месяц'],'再见':['zàijiàn','до свидания'],
+  '在':['zài','в/находиться'],'怎么':['zěnme','как'],
+  '这':['zhè','этот'],'中国':['Zhōngguó','Китай'],
+  '中文':['Zhōngwén','китайский язык'],'住':['zhù','жить'],
+  '桌子':['zhuōzi','стол'],'昨天':['zuótiān','вчера'],
+  '坐':['zuò','сидеть/ехать'],'做':['zuò','делать'],
+  // HSK 2
+  '白':['bái','белый'],'帮助':['bāngzhù','помогать'],
+  '比':['bǐ','чем/сравнивать'],'别':['bié','не (запрет)'],
+  '宾馆':['bīnguǎn','гостиница'],'长':['cháng','длинный'],
+  '穿':['chuān','носить/одевать'],'从':['cóng','от/с'],
+  '错':['cuò','неправильный'],'大家':['dàjiā','все'],
+  '但是':['dànshì','но'],'到':['dào','до/прибывать'],
+  '等':['děng','ждать'],'弟弟':['dìdi','младший брат'],
+  '懂':['dǒng','понимать'],'对':['duì','правильный'],
+  '房间':['fángjiān','комната'],'非常':['fēicháng','очень'],
+  '服务员':['fúwùyuán','официант'],'告诉':['gàosu','говорить/сообщать'],
+  '哥哥':['gēge','старший брат'],'给':['gěi','давать/для'],
+  '公共汽车':['gōnggòng qìchē','автобус'],'公司':['gōngsī','компания'],
+  '贵':['guì','дорогой'],'过':['guò','проходить'],
+  '还':['hái','ещё'],'孩子':['háizi','ребёнок'],
+  '黑':['hēi','чёрный'],'红':['hóng','красный'],
+  '机场':['jīchǎng','аэропорт'],'鸡蛋':['jīdàn','яйцо'],
+  '件':['jiàn','(счётное для одежды)'],'教室':['jiàoshì','класс'],
+  '结婚':['jié hūn','жениться'],'姐姐':['jiějie','старшая сестра'],
+  '今年':['jīnnián','в этом году'],'进':['jìn','входить'],
+  '近':['jìn','близко'],'就':['jiù','как раз'],
+  '觉得':['juéde','думать/чувствовать'],'开始':['kāishǐ','начинать'],
+  '考试':['kǎoshì','экзамен'],'可能':['kěnéng','возможно'],
+  '可以':['kěyǐ','можно/мочь'],'课':['kè','урок'],
+  '快':['kuài','быстрый'],'快乐':['kuàilè','счастливый'],
+  '累':['lèi','уставший'],'离':['lí','далеко от'],
+  '礼物':['lǐwù','подарок'],'两':['liǎng','два (пара)'],
+  '路':['lù','дорога'],'旅游':['lǚyóu','путешествовать'],
+  '卖':['mài','продавать'],'慢':['màn','медленный'],
+  '忙':['máng','занятой'],'每':['měi','каждый'],
+  '妹妹':['mèimei','младшая сестра'],'面条':['miàntiáo','лапша'],
+  '男':['nán','мужской'],'难':['nán','трудный'],
+  '牛奶':['niúnǎi','молоко'],'女':['nǚ','женский'],
+  '旁边':['pángbiān','рядом'],'便宜':['piányi','дёшевый'],
+  '票':['piào','билет'],'妻子':['qīzi','жена'],
+  '起床':['qǐchuáng','вставать'],'让':['ràng','позволять'],
+  '如果':['rúguǒ','если'],'身体':['shēntǐ','тело/здоровье'],
+  '生病':['shēngbìng','заболеть'],'生日':['shēngrì','день рождения'],
+  '时间':['shíjiān','время'],'手机':['shǒujī','телефон'],
+  '瘦':['shòu','худой'],'舒服':['shūfu','удобно'],
+  '虽然':['suīrán','хотя'],'所以':['suǒyǐ','поэтому'],
+  '跳舞':['tiào wǔ','танцевать'],'图书馆':['túshūguǎn','библиотека'],
+  '玩':['wán','играть'],'晚上':['wǎnshang','вечер'],
+  '为什么':['wèishénme','почему'],'问题':['wèntí','вопрос'],
+  '希望':['xīwàng','надеяться'],'喜欢':['xǐhuan','нравиться'],
+  '新':['xīn','новый'],'姓':['xìng','фамилия'],
+  '休息':['xiūxi','отдыхать'],'雪':['xuě','снег'],
+  '眼睛':['yǎnjing','глаза'],'一起':['yīqǐ','вместе'],
+  '已经':['yǐjīng','уже'],'因为':['yīnwèi','потому что'],
+  '音乐':['yīnyuè','музыка'],'游泳':['yóuyǒng','плавать'],
+  '右边':['yòubiān','справа'],'运动':['yùndòng','спорт'],
+  '再':['zài','снова'],'早上':['zǎoshang','утро'],
+  '丈夫':['zhàngfu','муж'],'找':['zhǎo','искать'],
+  '真':['zhēn','действительно'],'知道':['zhīdào','знать'],
+  '中午':['zhōngwǔ','полдень'],'自己':['zìjǐ','сам'],
+  '走':['zǒu','ходить/уходить'],
+  // HSK 3 (частичный)
+  '安静':['ānjìng','тихий'],'办公室':['bàngōngshì','офис'],
+  '帮':['bāng','помогать'],'包':['bāo','сумка'],
+  '变化':['biànhuà','изменение'],'超市':['chāoshì','супермаркет'],
+  '成绩':['chéngjì','оценки/результат'],'城市':['chéngshì','город'],
+  '迟到':['chídào','опаздывать'],'担心':['dānxīn','беспокоиться'],
+  '地铁':['dìtiě','метро'],'地图':['dìtú','карта'],
+  '发现':['fāxiàn','обнаруживать'],'方便':['fāngbiàn','удобный'],
+  '附近':['fùjìn','рядом/поблизости'],'复习':['fùxí','повторять'],
+  '干净':['gānjìng','чистый'],'故事':['gùshi','история'],
+  '护照':['hùzhào','паспорт'],'花':['huā','цветок/тратить'],
+  '换':['huàn','менять'],'活动':['huódòng','мероприятие'],
+  '计划':['jìhuà','план'],'记得':['jìde','помнить'],
+  '健康':['jiànkāng','здоровый'],'介绍':['jièshào','представлять'],
+  '经常':['jīngcháng','часто'],'决定':['juédìng','решать'],
+  '咖啡':['kāfēi','кофе'],'开心':['kāixīn','радостный'],
+  '筷子':['kuàizi','палочки для еды'],'了解':['liǎojiě','понимать'],
+  '马上':['mǎshàng','сразу'],'满意':['mǎnyì','доволен'],
+  '努力':['nǔlì','стараться'],'其实':['qíshí','на самом деле'],
+  '认为':['rènwéi','считать'],'散步':['sànbù','гулять'],
+  '声音':['shēngyīn','звук/голос'],'世界':['shìjiè','мир'],
+  '送':['sòng','дарить/провожать'],'特别':['tèbié','особенный'],
+  '通过':['tōngguò','через/посредством'],'同意':['tóngyì','соглашаться'],
+  '完成':['wánchéng','завершать'],'忘记':['wàngjì','забывать'],
+  '文化':['wénhuà','культура'],'习惯':['xíguàn','привычка'],
+  '先':['xiān','сначала'],'向':['xiàng','в сторону к'],
+  '选择':['xuǎnzé','выбирать'],'一定':['yīdìng','определённо'],
+  '以后':['yǐhòu','после/в будущем'],'以前':['yǐqián','раньше/до'],
+  '用':['yòng','использовать'],'原来':['yuánlái','оказывается'],
+  '愿意':['yuànyì','хотеть/желать'],'杂志':['zázhì','журнал'],
+  '整理':['zhěnglǐ','приводить в порядок'],'只':['zhǐ','только'],
+  '中间':['zhōngjiān','середина'],'周末':['zhōumò','выходные'],
+  '准备':['zhǔnbèi','готовиться'],'自行车':['zìxíngchē','велосипед'],
+  // Путешествия
+  '签证':['qiānzhèng','виза'],'行李':['xíngli','багаж'],
+  '登机牌':['dēngjīpái','посадочный талон'],'海关':['hǎiguān','таможня'],
+  '航班':['hángbān','рейс'],'延误':['yánwù','задержка'],
+  '预订':['yùdìng','бронировать'],'导游':['dǎoyóu','экскурсовод'],
+  '景点':['jǐngdiǎn','достопримечательность'],'纪念品':['jìniànpǐn','сувенир'],
+  '火车':['huǒchē','поезд'],'高铁':['gāotiě','скоростной поезд'],
+  '酒店':['jiǔdiàn','гостиница/отель'],'入住':['rùzhù','заселиться'],
+  '退房':['tuìfáng','освободить номер'],'护照':['hùzhào','паспорт'],
+  '单程':['dānchéng','в одну сторону'],'往返':['wǎngfǎn','туда-обратно'],
+};
+
+// ─────────────────────────────────────────────
 //  STATE
 // ─────────────────────────────────────────────
 let words = JSON.parse(localStorage.getItem('chineseWords') || '[]');
@@ -483,71 +678,179 @@ let hskLevel = 1;
 let fillQueue = [], fIdx = 0, fScore = {c:0,w:0}, fAnswered = false;
 
 // ─────────────────────────────────────────────
-//  SENTENCE DATABASE
+//  SENTENCE DATABASE (expanded, contextual)
 // ─────────────────────────────────────────────
 const DB = [
+  // ── Еда и напитки ──
   {t:"我___水。",w:"喝",tr:"Я пью воду.",hsk:1},
   {t:"她___茶。",w:"喝",tr:"Она пьёт чай.",hsk:1},
-  {t:"我是___。",w:"学生",tr:"Я студент.",hsk:1},
-  {t:"他___中文。",w:"学习",tr:"Он учит китайский.",hsk:1},
-  {t:"我___中文。",w:"学",tr:"Я учу китайский.",hsk:1},
-  {t:"这个___很贵。",w:"苹果",tr:"Это яблоко очень дорогое.",hsk:1},
-  {t:"我有一个___。",w:"朋友",tr:"У меня есть один друг.",hsk:1},
-  {t:"你___吗？",w:"好",tr:"Ты в порядке?",hsk:1},
-  {t:"这是我的___。",w:"书",tr:"Это моя книга.",hsk:1},
-  {t:"我___你。",w:"爱",tr:"Я тебя люблю.",hsk:1},
-  {t:"___很冷。",w:"今天",tr:"Сегодня очень холодно.",hsk:1},
-  {t:"你___哪里？",w:"去",tr:"Куда ты идёшь?",hsk:1},
-  {t:"我___吃饭。",w:"想",tr:"Я хочу поесть.",hsk:1},
-  {t:"他___中国人。",w:"是",tr:"Он китаец.",hsk:1},
-  {t:"我___三本书。",w:"有",tr:"У меня три книги.",hsk:1},
-  {t:"这个菜___好吃。",w:"很",tr:"Это блюдо очень вкусное.",hsk:1},
-  {t:"我___他是老师。",w:"知道",tr:"Я знаю, что он учитель.",hsk:1},
-  {t:"她___汉语。",w:"说",tr:"Она говорит по-китайски.",hsk:1},
-  {t:"我每天___自行车去学校。",w:"骑",tr:"Я каждый день езжу в школу на велосипеде.",hsk:2},
-  {t:"她___一件红色的衣服。",w:"穿",tr:"Она носит красное платье.",hsk:2},
-  {t:"他___说汉语很难。",w:"觉得",tr:"Он думает, что говорить по-китайски трудно.",hsk:2},
-  {t:"你的___在哪里？",w:"手机",tr:"Где твой телефон?",hsk:2},
-  {t:"我___去北京了。",w:"已经",tr:"Я уже был в Пекине.",hsk:2},
-  {t:"我___看书。",w:"喜欢",tr:"Я люблю читать книги.",hsk:2},
-  {t:"这个问题太___了。",w:"难",tr:"Этот вопрос слишком сложный.",hsk:2},
-  {t:"我___说中文。",w:"会",tr:"Я умею говорить по-китайски.",hsk:2},
-  {t:"我们___一起吃饭。",w:"应该",tr:"Нам следует поесть вместе.",hsk:2},
-  {t:"他___工作很忙。",w:"最近",tr:"В последнее время он очень занят на работе.",hsk:2},
-  {t:"你___什么运动？",w:"喜欢",tr:"Какой спорт тебе нравится?",hsk:2},
-  {t:"我___他的名字。",w:"忘了",tr:"Я забыл его имя.",hsk:2},
-  {t:"她___很漂亮。",w:"真的",tr:"Она действительно очень красивая.",hsk:2},
-  {t:"虽然他不喜欢，但是他___努力。",w:"很",tr:"Хотя ему не нравится, он очень старается.",hsk:3},
-  {t:"我___这份工作很有意思。",w:"认为",tr:"Я считаю, что эта работа очень интересная.",hsk:3},
-  {t:"她___每天练习中文。",w:"坚持",tr:"Она каждый день упорно занимается китайским.",hsk:3},
-  {t:"因为下雨，所以我没有___。",w:"出门",tr:"Из-за дождя я не вышел на улицу.",hsk:3},
-  {t:"这次考试比上次___多了。",w:"难",tr:"Этот экзамен намного сложнее прошлого.",hsk:3},
-  {t:"请你___一下这个词的意思。",w:"解释",tr:"Пожалуйста, объясни значение этого слова.",hsk:3},
-  {t:"我___他是一个好人。",w:"相信",tr:"Я верю, что он хороший человек.",hsk:3},
-  {t:"她___一个人住在北京。",w:"一直",tr:"Она всё время живёт в Пекине одна.",hsk:3},
-  {t:"我们需要___这个问题。",w:"讨论",tr:"Нам нужно обсудить этот вопрос.",hsk:3},
-  {t:"这个地方___很有名。",w:"非常",tr:"Это место чрезвычайно знаменито.",hsk:3},
-  {t:"他___很高的职位。",w:"担任",tr:"Он занимает очень высокую должность.",hsk:4},
-  {t:"我们需要___这个计划。",w:"实施",tr:"Нам нужно реализовать этот план.",hsk:4},
-  {t:"这项技术___了我们的生活。",w:"改变",tr:"Эта технология изменила нашу жизнь.",hsk:4},
-  {t:"她___地完成了这项任务。",w:"顺利",tr:"Она успешно выполнила это задание.",hsk:4},
-  {t:"我们___到了很多困难。",w:"遇到",tr:"Мы столкнулись со многими трудностями.",hsk:4},
-  {t:"他对这件事___了自己的看法。",w:"表达",tr:"Он выразил своё мнение по этому вопросу.",hsk:5},
-  {t:"这个___在国际上很有影响力。",w:"企业",tr:"Это предприятие очень влиятельно на международном уровне.",hsk:5},
-  {t:"这项研究___了重要结果。",w:"取得",tr:"Это исследование достигло важных результатов.",hsk:5},
-  {t:"他的___让所有人都很感动。",w:"演讲",tr:"Его речь растрогала всех.",hsk:5},
-  {t:"这种现象___了深层次的社会问题。",w:"折射",tr:"Это явление отражает глубинные социальные проблемы.",hsk:6},
-  {t:"这部作品___了时代的精神。",w:"体现",tr:"Это произведение воплощает дух эпохи.",hsk:6},
+  {t:"天气很热，我想___冰水。",w:"喝",tr:"Жарко, хочу выпить холодной воды.",hsk:1},
+  {t:"这个苹果很甜，我想___。",w:"吃",tr:"Это яблоко очень сладкое, хочу съесть.",hsk:1},
+  {t:"我们去餐厅___饭吧。",w:"吃",tr:"Пойдём в ресторан поедим.",hsk:1},
+  {t:"这碗___很好吃。",w:"米饭",tr:"Этот рис очень вкусный.",hsk:1},
+  {t:"妈妈今天做了___，很好吃。",w:"面条",tr:"Мама сегодня приготовила лапшу, очень вкусно.",hsk:2},
+  {t:"早饭我吃了一个___。",w:"鸡蛋",tr:"На завтрак я съел одно яйцо.",hsk:2},
+  {t:"我每天早上喝一杯___。",w:"牛奶",tr:"Каждое утро я выпиваю стакан молока.",hsk:2},
+  {t:"你喜欢喝___还是茶？",w:"咖啡",tr:"Ты предпочитаешь кофе или чай?",hsk:3},
+  {t:"中国人吃饭用___。",w:"筷子",tr:"Китайцы едят палочками для еды.",hsk:3},
+  {t:"冰箱里有很多___，你想吃哪个？",w:"水果",tr:"В холодильнике много фруктов, какой хочешь?",hsk:1},
+  // ── Транспорт и поездки ──
+  {t:"我们坐___去上海，两个小时就到了。",w:"飞机",tr:"Мы летим в Шанхай на самолёте, всего два часа.",hsk:1},
+  {t:"去北京最快的方式是坐___。",w:"飞机",tr:"Самый быстрый способ добраться до Пекина — на самолёте.",hsk:1},
+  {t:"我的___在哪里？我找不到了。",w:"护照",tr:"Где мой паспорт? Не могу найти.",hsk:3},
+  {t:"出国旅行需要带___。",w:"护照",tr:"В международное путешествие нужно взять паспорт.",hsk:3},
+  {t:"请到___值机，然后去安检。",w:"机场",tr:"Пройдите в аэропорт на регистрацию, затем на досмотр.",hsk:2},
+  {t:"我明天早上六点到___。",w:"机场",tr:"Завтра утром в шесть я буду в аэропорту.",hsk:2},
+  {t:"请出示您的___和登机牌。",w:"护照",tr:"Предъявите паспорт и посадочный талон.",hsk:3},
+  {t:"行李太重了，需要托运___。",w:"行李",tr:"Багаж слишком тяжёлый, нужно сдать его в багаж.",hsk:3},
+  {t:"我订了一张___，下周去北京。",w:"票",tr:"Я купил билет, на следующей неделе еду в Пекин.",hsk:2},
+  {t:"坐地铁比坐___快。",w:"公共汽车",tr:"На метро быстрее, чем на автобусе.",hsk:2},
+  {t:"我需要打___去机场。",w:"出租车",tr:"Мне нужно взять такси до аэропорта.",hsk:1},
+  {t:"去火车站坐___最方便。",w:"地铁",tr:"До вокзала удобнее всего на метро.",hsk:3},
+  {t:"这次___要去三个城市。",w:"旅游",tr:"В этой поездке посетим три города.",hsk:2},
+  {t:"我们___了一家靠近景点的酒店。",w:"预订",tr:"Мы забронировали отель рядом с достопримечательностью.",hsk:3},
+  {t:"___快到了，请系好安全带。",w:"飞机",tr:"Самолёт скоро прилетит, пристегните ремни.",hsk:1},
+  {t:"我们乘坐高速列车，比___快多了。",w:"飞机",tr:"Мы ехали на скоростном поезде, это намного удобнее самолёта.",hsk:3},
+  // ── Учёба ──
+  {t:"我是___，在大学学习汉语。",w:"学生",tr:"Я студент, учу китайский в университете.",hsk:1},
+  {t:"___每天教我们说中文。",w:"老师",tr:"Учитель каждый день учит нас говорить по-китайски.",hsk:1},
+  {t:"我每天___两个小时汉语。",w:"学习",tr:"Каждый день я учу китайский два часа.",hsk:1},
+  {t:"明天有___，我需要复习。",w:"考试",tr:"Завтра экзамен, мне нужно повторить материал.",hsk:2},
+  {t:"这本书在___里可以借到。",w:"图书馆",tr:"Эту книгу можно взять в библиотеке.",hsk:2},
+  {t:"今天的___太难了，我不会做。",w:"课",tr:"Сегодняшний урок слишком сложный, я не могу.",hsk:2},
+  {t:"我的___很好，期末考了满分。",w:"成绩",tr:"У меня хорошие оценки, на финальном экзамене получил полный балл.",hsk:3},
+  // ── Покупки ──
+  {t:"这件衣服太___了，我买不起。",w:"贵",tr:"Это платье слишком дорогое, не могу купить.",hsk:2},
+  {t:"这家___的苹果又大又甜。",w:"超市",tr:"В этом супермаркете яблоки большие и сладкие.",hsk:3},
+  {t:"我去___买了一些食物。",w:"商店",tr:"Я пошёл в магазин купить немного еды.",hsk:1},
+  {t:"这条裙子很___，只要五十块。",w:"便宜",tr:"Это платье очень дёшевое, всего пятьдесят юаней.",hsk:2},
+  {t:"我在网上___了一双鞋。",w:"买",tr:"Я купил пару обуви в интернете.",hsk:1},
+  // ── Работа ──
+  {t:"我在一家大___工作，做市场部门。",w:"公司",tr:"Я работаю в крупной компании, в отделе маркетинга.",hsk:2},
+  {t:"今天在___开了三个会，很累。",w:"办公室",tr:"Сегодня в офисе было три совещания, очень устал.",hsk:3},
+  {t:"我的___对我的工作很满意。",w:"老板",tr:"Мой начальник доволен моей работой.",hsk:3},
+  // ── Здоровье ──
+  {t:"我头疼，需要去___看医生。",w:"医院",tr:"У меня болит голова, нужно идти в больницу.",hsk:1},
+  {t:"___说我需要多休息，少工作。",w:"医生",tr:"Врач сказал, что мне нужно больше отдыхать и меньше работать.",hsk:1},
+  {t:"因为___了，所以今天没去上班。",w:"生病",tr:"Из-за болезни сегодня не пошёл на работу.",hsk:2},
+  {t:"要保持___，每天要锻炼身体。",w:"健康",tr:"Чтобы быть здоровым, нужно каждый день заниматься спортом.",hsk:3},
+  // ── Семья ──
+  {t:"我___每天给我做早饭。",w:"妈妈",tr:"Моя мама каждый день готовит мне завтрак.",hsk:1},
+  {t:"我___是工程师，在北京工作。",w:"爸爸",tr:"Мой папа инженер, работает в Пекине.",hsk:1},
+  {t:"我有一个___和一个妹妹。",w:"哥哥",tr:"У меня есть старший брат и младшая сестра.",hsk:2},
+  // ── Общение ──
+  {t:"你好！请问你叫什么___？",w:"名字",tr:"Привет! Как тебя зовут?",hsk:1},
+  {t:"见到你很___！",w:"高兴",tr:"Рад тебя видеть!",hsk:1},
+  {t:"请问你___哪里？",w:"去",tr:"Скажите, куда вы идёте?",hsk:1},
+  {t:"你会___汉语吗？",w:"说",tr:"Ты умеешь говорить по-китайски?",hsk:1},
+  {t:"我不___他在哪里。",w:"知道",tr:"Я не знаю, где он.",hsk:1},
+  // ── Время и место ──
+  {t:"___天气很好，我们去公园吧。",w:"今天",tr:"Сегодня хорошая погода, пойдём в парк.",hsk:1},
+  {t:"我___早上七点起床。",w:"每天",tr:"Я встаю в семь утром каждый день.",hsk:2},
+  {t:"图书馆在学校___。",w:"旁边",tr:"Библиотека находится рядом со школой.",hsk:2},
+  {t:"请在这里___一下，我去拿东西。",w:"等",tr:"Подождите здесь, я пойду возьму кое-что.",hsk:2},
+  {t:"我___到家了，给你发消息。",w:"已经",tr:"Я уже дома, написал тебе сообщение.",hsk:2},
+  // ── Погода ──
+  {t:"今天___很大，要带雨伞。",w:"雨",tr:"Сегодня сильный дождь, нужно взять зонтик.",hsk:1},
+  {t:"冬天北京___很大。",w:"雪",tr:"Зимой в Пекине много снега.",hsk:2},
+  // ── Разное ──
+  {t:"这件事我需要好好___。",w:"想",tr:"Мне нужно хорошенько подумать об этом деле.",hsk:1},
+  {t:"我___他是个好人。",w:"觉得",tr:"Я думаю, что он хороший человек.",hsk:2},
+  {t:"___下雨，所以比赛取消了。",w:"因为",tr:"Из-за дождя матч отменили.",hsk:2},
+  {t:"他___说话，我没听清楚。",w:"太快",tr:"Он говорит слишком быстро, я не расслышал.",hsk:2},
+  {t:"我___这本书，但是找不到了。",w:"找",tr:"Я ищу эту книгу, но не могу найти.",hsk:2},
+  {t:"这里的风景___美，我想多拍几张照片。",w:"非常",tr:"Здесь очень красивый вид, хочу сделать больше фото.",hsk:3},
+  {t:"我___这个决定是对的。",w:"认为",tr:"Я считаю, что это решение правильное.",hsk:3},
+  {t:"她___了自己的爱好，每天练钢琴。",w:"坚持",tr:"Она упорно следует своему хобби, каждый день играет на пианино.",hsk:3},
+  {t:"请你___一下这个问题的答案。",w:"解释",tr:"Пожалуйста, объясни ответ на этот вопрос.",hsk:3},
+  {t:"我们需要___这件事情。",w:"讨论",tr:"Нам нужно обсудить это дело.",hsk:3},
+  {t:"签证要在出发___提前申请。",w:"以前",tr:"Визу нужно подать заранее до отъезда.",hsk:3},
+  {t:"旅行___要做好准备。",w:"以前",tr:"До путешествия нужно хорошо подготовиться.",hsk:3},
 ];
 
 const TMPL = {
-  1:[{t:"我___。",tr:"Я ___."},  {t:"他___。",tr:"Он ___."},  {t:"你___吗？",tr:"Ты ___?"}],
-  2:[{t:"我每天___。",tr:"Я каждый день ___."}, {t:"你喜欢___吗？",tr:"Тебе нравится ___?"}],
-  3:[{t:"我认为___很重要。",tr:"Я считаю, что ___ очень важно."}, {t:"她坚持每天___。",tr:"Она каждый день упорно ___."}],
-  4:[{t:"随着发展，___越来越重要。",tr:"По мере развития ___ становится всё важнее."}, {t:"他通过努力___了目标。",tr:"Он достиг цели благодаря усердию ___."}],
-  5:[{t:"在全球化背景下，___发挥着重要作用。",tr:"В условиях глобализации ___ играет важную роль."}, {t:"我们应当积极___，推动进步。",tr:"Нам следует активно ___, чтобы двигаться вперёд."}],
-  6:[{t:"从长远来看，___具有战略意义。",tr:"В долгосрочной перспективе ___ имеет стратегическое значение."}, {t:"这种___折射出社会深层次的矛盾。",tr:"Это ___ отражает глубинные противоречия общества."}],
+  1:[
+    {t:"我___。",tr:"Я ___."},
+    {t:"他___。",tr:"Он ___."},
+    {t:"你___吗？",tr:"Ты ___?"},
+    {t:"这是___。",tr:"Это ___."},
+  ],
+  2:[
+    {t:"我每天___。",tr:"Я каждый день ___."},
+    {t:"你喜欢___吗？",tr:"Тебе нравится ___?"},
+    {t:"我需要___。",tr:"Мне нужно ___."},
+  ],
+  3:[
+    {t:"我认为___很重要。",tr:"Я считаю, что ___ очень важно."},
+    {t:"她坚持每天___。",tr:"Она каждый день упорно ___."},
+    {t:"我们需要___。",tr:"Нам нужно ___."},
+  ],
+  4:[
+    {t:"随着发展，___越来越重要。",tr:"По мере развития ___ становится всё важнее."},
+    {t:"他通过努力___了目标。",tr:"Он достиг цели, ___."},
+  ],
+  5:[
+    {t:"在全球化背景下，___发挥着重要作用。",tr:"В условиях глобализации ___ играет важную роль."},
+    {t:"我们应当积极___，推动进步。",tr:"Нам следует активно ___, чтобы двигаться вперёд."},
+  ],
+  6:[
+    {t:"从长远来看，___具有战略意义。",tr:"В долгосрочной перспективе ___ имеет стратегическое значение."},
+    {t:"这种___折射出社会深层次的矛盾。",tr:"Это ___ отражает глубинные противоречия общества."},
+  ],
 };
+
+// ─────────────────────────────────────────────
+//  PINYIN UTILITIES
+// ─────────────────────────────────────────────
+function toneToNum(s) {
+  // Convert tone-marked pinyin to numbered pinyin: wǒ → wo3, fēijī → fei1ji1
+  if (!s) return '';
+  const toneMap = {
+    'ā':['a','1'],'á':['a','2'],'ǎ':['a','3'],'à':['a','4'],
+    'ē':['e','1'],'é':['e','2'],'ě':['e','3'],'è':['e','4'],
+    'ī':['i','1'],'í':['i','2'],'ǐ':['i','3'],'ì':['i','4'],
+    'ō':['o','1'],'ó':['o','2'],'ǒ':['o','3'],'ò':['o','4'],
+    'ū':['u','1'],'ú':['u','2'],'ǔ':['u','3'],'ù':['u','4'],
+    'ǖ':['v','1'],'ǘ':['v','2'],'ǚ':['v','3'],'ǜ':['v','4']
+  };
+  const vowels = 'aeiouüāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜv';
+  let result = '';
+  let i = 0;
+  const str = s.toLowerCase().trim();
+  while (i < str.length) {
+    const ch = str[i];
+    if (toneMap[ch]) {
+      const [plainCh, toneNum] = toneMap[ch];
+      // Collect rest of vowel cluster after this toned vowel
+      let j = i + 1;
+      let after = '';
+      while (j < str.length && vowels.includes(str[j])) {
+        const nc = str[j];
+        after += toneMap[nc] ? toneMap[nc][0] : nc;
+        j++;
+      }
+      result += plainCh + after + toneNum;
+      i = j;
+    } else {
+      result += ch;
+      i++;
+    }
+  }
+  return result;
+}
+
+function normPinyin(s) {
+  // Normalize for comparison: both tone-marked and numbered → same form
+  return toneToNum(s).replace(/\s+/g,'').toLowerCase();
+}
+
+function norm(s) {
+  // Strip all tones (used for char input comparison)
+  return s.toLowerCase().trim()
+    .replace(/[āáǎà]/g,'a').replace(/[ēéěè]/g,'e')
+    .replace(/[īíǐì]/g,'i').replace(/[ōóǒò]/g,'o')
+    .replace(/[ūúǔù]/g,'u').replace(/[ǖǘǚǜ]/g,'v');
+}
 
 // ─────────────────────────────────────────────
 //  WORD BANK
@@ -562,7 +865,17 @@ function loadWords() {
     const parts = line.split(',').map(s => s.trim());
     const ch = parts[0];
     if (!ch) return;
-    newWords.push({ char: ch, pinyin: parts[1] || '', meaning: parts[2] || '' });
+    let pinyin = parts[1] || '';
+    let meaning = parts[2] || '';
+    // Auto-fill from dictionary if missing
+    if (!pinyin || !meaning) {
+      const entry = DICT[ch];
+      if (entry) {
+        if (!pinyin) pinyin = entry[0];
+        if (!meaning) meaning = entry[1];
+      }
+    }
+    newWords.push({ char: ch, pinyin, meaning });
   });
   words = newWords;
   saveWords();
@@ -584,7 +897,32 @@ function removeWord(i) {
   words.splice(i, 1);
   saveWords();
   renderChips();
-  // Sync textarea
+  document.getElementById('word-input').value =
+    words.map(w => [w.char, w.pinyin, w.meaning].filter(Boolean).join(', ')).join('\n');
+}
+
+function editChip(i) {
+  const chip = document.getElementById('chip-' + i);
+  const w = words[i];
+  chip.classList.add('editing');
+  chip.innerHTML = `
+    <span class="chip-char">${w.char}</span>
+    <div class="chip-edit-panel">
+      <input class="chip-edit-input" id="ep-p-${i}" value="${w.pinyin}" placeholder="пиньинь">
+      <input class="chip-edit-input" id="ep-m-${i}" value="${w.meaning}" placeholder="перевод">
+      <div class="chip-edit-btns">
+        <button class="chip-save-btn" onclick="saveChipEdit(${i})">✓</button>
+        <button class="chip-del" style="position:static" onclick="renderChips()">✗</button>
+      </div>
+    </div>`;
+  setTimeout(() => document.getElementById('ep-p-' + i).focus(), 30);
+}
+
+function saveChipEdit(i) {
+  words[i].pinyin  = document.getElementById('ep-p-' + i).value.trim();
+  words[i].meaning = document.getElementById('ep-m-' + i).value.trim();
+  saveWords();
+  renderChips();
   document.getElementById('word-input').value =
     words.map(w => [w.char, w.pinyin, w.meaning].filter(Boolean).join(', ')).join('\n');
 }
@@ -596,11 +934,14 @@ function renderChips() {
   if (words.length === 0) { card.style.display = 'none'; return; }
   card.style.display = 'block';
   wrap.innerHTML = words.map((w,i) => `
-    <div class="chip">
+    <div class="chip" id="chip-${i}">
       <span class="chip-char">${w.char}</span>
-      ${w.pinyin ? `<span class="chip-pinyin">${w.pinyin}</span>` : ''}
-      ${w.meaning ? `<span class="chip-meaning">${w.meaning}</span>` : ''}
-      <button class="chip-del" onclick="removeWord(${i})">×</button>
+      ${w.pinyin  ? `<span class="chip-pinyin">${w.pinyin}</span>`  : '<span class="chip-pinyin" style="color:var(--muted);font-style:italic">нет</span>'}
+      ${w.meaning ? `<span class="chip-meaning">${w.meaning}</span>` : '<span class="chip-meaning" style="color:var(--muted);font-style:italic">нет</span>'}
+      <div class="chip-actions">
+        <button class="chip-edit-btn" onclick="editChip(${i})" title="редактировать">✎</button>
+        <button class="chip-del" onclick="removeWord(${i})">×</button>
+      </div>
     </div>`).join('');
 }
 
@@ -643,22 +984,23 @@ function showCard() {
 
   const pr = document.getElementById('ex-prompt');
   pr.className = 'ex-prompt';
-
   const hint = document.getElementById('ex-hint');
+
   if (practiceMode === 'char-to-meaning') {
     document.getElementById('ex-label').textContent = 'Иероглиф → перевод на русском';
     pr.textContent = w.char;
     curAns = (w.meaning || '').toLowerCase();
     inp.placeholder = 'перевод...';
     inp.style.fontFamily = "'Noto Sans SC', sans-serif"; inp.style.fontSize = '18px';
-    if (w.pinyin) { hint.textContent = w.pinyin; hint.style.display = 'block'; }
+    if (w.pinyin) { hint.textContent = '💡 ' + w.pinyin; hint.style.display = 'block'; }
   } else if (practiceMode === 'meaning-to-char') {
     document.getElementById('ex-label').textContent = 'Напиши иероглиф для:';
     const display = w.meaning || w.pinyin || '(нет перевода)';
     pr.textContent = display;
     pr.className = 'ex-prompt meaning';
     curAns = w.char;
-    inp.placeholder = '汉字...'; inp.style.fontFamily = "'Ma Shan Zheng', 'Noto Serif SC', serif"; inp.style.fontSize = '24px';
+    inp.placeholder = '汉字...';
+    inp.style.fontFamily = "'Noto Serif SC', serif"; inp.style.fontSize = '24px';
     if (w.meaning && w.pinyin) { hint.textContent = '💡 ' + w.pinyin; hint.style.display = 'block'; }
     else if (!w.meaning && w.pinyin) { hint.textContent = '⚠️ Перевод не добавлен — показан пиньинь'; hint.style.display = 'block'; }
   } else if (practiceMode === 'pinyin-to-char') {
@@ -666,23 +1008,18 @@ function showCard() {
     pr.textContent = w.pinyin || '(нет пиньиня)';
     pr.className = 'ex-prompt pinyin';
     curAns = w.char;
-    inp.placeholder = '汉字...'; inp.style.fontFamily = "'Ma Shan Zheng', 'Noto Serif SC', serif"; inp.style.fontSize = '24px';
+    inp.placeholder = '汉字...';
+    inp.style.fontFamily = "'Noto Serif SC', serif"; inp.style.fontSize = '24px';
     if (w.meaning) { hint.textContent = '💡 ' + w.meaning; hint.style.display = 'block'; }
-  } else {
-    document.getElementById('ex-label').textContent = 'Иероглиф → пиньинь';
+  } else { // char-to-pinyin
+    document.getElementById('ex-label').textContent = 'Иероглиф → пиньинь цифрами';
     pr.textContent = w.char;
-    curAns = norm(w.pinyin || '');
-    inp.placeholder = 'pīnyīn...'; inp.style.fontFamily = "'Noto Sans SC', sans-serif"; inp.style.fontSize = '20px';
+    curAns = toneToNum(w.pinyin || '');
+    inp.placeholder = 'напр. wo3, fei1ji1...';
+    inp.style.fontFamily = "'Noto Sans SC', sans-serif"; inp.style.fontSize = '20px';
     if (w.meaning) { hint.textContent = '💡 ' + w.meaning; hint.style.display = 'block'; }
   }
   setTimeout(() => inp.focus(), 40);
-}
-
-function norm(s) {
-  return s.toLowerCase().trim()
-    .replace(/[āáǎà]/g,'a').replace(/[ēéěè]/g,'e')
-    .replace(/[īíǐì]/g,'i').replace(/[ōóǒò]/g,'o')
-    .replace(/[ūúǔù]/g,'u').replace(/[ǖǘǚǜ]/g,'v');
 }
 
 function checkAnswer() {
@@ -690,9 +1027,16 @@ function checkAnswer() {
   const inp = document.getElementById('ex-input');
   const val = inp.value.trim(); if (!val) return;
   answered = true; inp.disabled = true;
-  const ok = practiceMode === 'char-to-meaning'
-    ? curAns === val.toLowerCase().trim()
-    : norm(val) === norm(curAns);
+
+  let ok;
+  if (practiceMode === 'char-to-meaning') {
+    ok = curAns === val.toLowerCase().trim();
+  } else if (practiceMode === 'char-to-pinyin') {
+    ok = normPinyin(val) === normPinyin(curAns);
+  } else {
+    ok = norm(val) === norm(curAns);
+  }
+
   const fb = document.getElementById('ex-feedback');
   const w = queue[qIdx];
   if (ok) {
@@ -702,8 +1046,9 @@ function checkAnswer() {
     score.w++; inp.classList.add('wrong');
     fb.textContent = '✗ Неверно'; fb.className = 'feedback wrong';
     const rev = document.getElementById('ex-answer-reveal');
+    const numbered = w.pinyin ? toneToNum(w.pinyin) + ' · ' + w.pinyin : '';
     rev.innerHTML = `<div class="rev-char">${w.char}</div>` +
-      (w.pinyin ? `<div class="rev-pinyin">${w.pinyin}</div>` : '') +
+      (numbered ? `<div class="rev-pinyin">${numbered}</div>` : '') +
       (w.meaning ? `<div class="rev-meaning">${w.meaning}</div>` : '');
     rev.style.display = 'block';
   }
@@ -737,6 +1082,25 @@ function setHSK(n, btn) {
   btn.classList.add('active');
 }
 
+function detectTheme(wordList) {
+  const themes = {
+    travel:   ['飞机','机场','护照','签证','行李','酒店','宾馆','地铁','出租车','火车','旅游','旅行','票','高铁','导游','景点'],
+    food:     ['吃','喝','饭','菜','肉','鱼','面','饺子','米饭','面条','咖啡','茶','苹果','水果','鸡蛋','牛奶','筷子'],
+    work:     ['工作','公司','办公室','同事','老板','会议','项目','计划','经理','员工'],
+    study:    ['学校','学生','老师','课','作业','考试','学习','书','图书馆','大学','成绩'],
+    family:   ['爸爸','妈妈','爷爷','奶奶','哥哥','姐姐','弟弟','妹妹','儿子','女儿','家','妻子','丈夫'],
+    health:   ['医院','医生','护士','药','生病','健康','身体'],
+    shopping: ['买','卖','商店','超市','钱','贵','便宜','衣服'],
+  };
+  const chars = wordList.map(w => w.char);
+  const counts = {};
+  for (const [theme, keywords] of Object.entries(themes)) {
+    counts[theme] = chars.filter(c => keywords.some(k => c.includes(k) || k.includes(c))).length;
+  }
+  const best = Object.entries(counts).sort((a,b) => b[1]-a[1])[0];
+  return best[1] > 0 ? best[0] : null;
+}
+
 function startFill() {
   if (!words.length) { alert('请先在词库中添加词汇！'); switchTab('words'); return; }
   fillQueue = buildFillQueue().sort(() => Math.random() - 0.5).slice(0, 20);
@@ -746,24 +1110,41 @@ function startFill() {
 
 function buildFillQueue() {
   const result = [];
+  const theme = detectTheme(words);
+
   words.forEach(word => {
-    // Try DB sentences containing this word
-    const hits = DB.filter(s => s.hsk <= hskLevel && s.t.replace('___','').includes(word.char));
-    if (hits.length > 0) {
-      hits.slice(0,2).forEach(h => {
-        const sent = h.t.includes('___') && h.w === word.char
-          ? h.t
-          : h.t.replace('___', h.w).replace(word.char, '___');
-        result.push({ sentence: sent, answer: word.char, word, translation: h.tr });
+    // 1. Exact match: sentences where this word is the answer
+    const exact = DB.filter(s => s.hsk <= hskLevel && s.w === word.char);
+    if (exact.length > 0) {
+      exact.slice(0, 2).forEach(h => {
+        result.push({ sentence: h.t, answer: word.char, word, translation: h.tr });
       });
       return;
     }
-    // Template fallback
+
+    // 2. Sentence contains the character elsewhere — rebuild with blank
+    const contains = DB.filter(s =>
+      s.hsk <= hskLevel && s.w !== word.char &&
+      s.t.replace('___', s.w).includes(word.char)
+    );
+    if (contains.length > 0) {
+      const h = contains[0];
+      const fullSent = h.t.replace('___', h.w);
+      const sent = fullSent.replace(word.char, '___');
+      if (sent.includes('___')) {
+        result.push({ sentence: sent, answer: word.char, word, translation: h.tr });
+        return;
+      }
+    }
+
+    // 3. Template fallback
     const tmArr = TMPL[hskLevel] || TMPL[3];
     const tm = tmArr[Math.floor(Math.random() * tmArr.length)];
     result.push({
-      sentence: tm.t, answer: word.char, word,
-      translation: tm.tr.replace('___', (word.meaning || word.char))
+      sentence: tm.t,
+      answer: word.char,
+      word,
+      translation: tm.tr.replace('___', word.meaning || word.char)
     });
   });
   return result;
