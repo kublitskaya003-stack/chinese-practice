@@ -296,6 +296,35 @@
       padding: 8px 18px; border-radius: 8px;
     }
 
+    /* ── RUBY PINYIN (Fill in Blank) ── */
+    .ruby-sent {
+      display: flex; flex-wrap: wrap; align-items: flex-end;
+      justify-content: center; gap: 1px; line-height: 1;
+    }
+    .ruby-wrap {
+      display: inline-flex; flex-direction: column; align-items: center;
+    }
+    .ruby-py {
+      font-size: 10px; color: var(--gold); line-height: 1.5;
+      min-height: 16px; font-family: 'Noto Sans SC', sans-serif;
+    }
+    .ruby-zh {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 26px; font-weight: 300; color: var(--text); line-height: 1.2;
+    }
+    .ruby-punct {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 20px; color: var(--muted); line-height: 1.2; margin-top: 16px;
+    }
+    .ruby-blank-wrap {
+      display: inline-flex; flex-direction: column; align-items: center; margin: 0 4px;
+    }
+    .ruby-blank {
+      display: inline-block; min-width: 58px; height: 31px;
+      border-bottom: 2.5px solid var(--red); background: var(--redbg);
+      border-radius: 4px;
+    }
+
     /* ── RESULTS ── */
     .result-screen { text-align: center; padding: 40px; }
     .result-pct { font-family: 'Noto Serif SC', serif; font-size: 72px; font-weight: 900; color: var(--red); }
@@ -371,21 +400,18 @@
     <div class="card">
       <div class="card-label">输入你想练习的词 · Enter your words</div>
 
-      <textarea class="word-textarea" id="word-input" placeholder="Вставьте иероглифы — по одному слову на строку
-Формат: иероглиф, пиньинь, перевод на русском
-Например:
-飞机, fēijī, самолёт
-机场, jīchǎng, аэропорт
-护照, hùzhào, паспорт
+      <textarea class="word-textarea" id="word-input" placeholder="Вставьте иероглифы — через пробел, запятую или с новой строки:
 
-Или просто иероглифы, по одному на строку:
-飞机
-机场
-护照"></textarea>
+飞机 机场 护照 签证
+
+или: 飞机，机场，护照
+
+Пиньинь и перевод добавятся автоматически из словаря.
+Если слова нет в словаре — отредактируйте карточку вручную (✎)."></textarea>
 
       <div class="input-hint">
-        По одному слову на строку<br>
-        Формат: <b>иероглиф, пиньинь, перевод</b> — или просто иероглиф
+        Вставляйте <b>только иероглифы</b> — системе всё равно, чем разделять.<br>
+        Пиньинь и перевод подтянутся из встроенного словаря автоматически.
       </div>
       <div class="input-actions">
         <button class="btn btn-red" onclick="loadWords()">✓ 保存词汇 · Save</button>
@@ -668,6 +694,12 @@ const DICT = {
   '单程':['dānchéng','в одну сторону'],'往返':['wǎngfǎn','туда-обратно'],
 };
 
+// Per-character pinyin from single-char DICT entries
+const CHAR_PINYIN = {};
+Object.entries(DICT).forEach(([chars, [py]]) => {
+  if (chars.length === 1) CHAR_PINYIN[chars] = py;
+});
+
 // ─────────────────────────────────────────────
 //  STATE
 // ─────────────────────────────────────────────
@@ -839,6 +871,33 @@ function toneToNum(s) {
   return result;
 }
 
+// Convert numbered pinyin to tone marks: "wo3" → "wǒ", "fei1ji1" → "fēijī"
+function numToTone(s) {
+  if (!s) return s;
+  const marks = {
+    a:['ā','á','ǎ','à'], e:['ē','é','ě','è'], i:['ī','í','ǐ','ì'],
+    o:['ō','ó','ǒ','ò'], u:['ū','ú','ǔ','ù'], v:['ǖ','ǘ','ǚ','ǜ'],
+  };
+  return s.replace(/([a-züvA-Z]+?)([1-4])/g, (_, syl, toneChar) => {
+    const t = parseInt(toneChar) - 1;
+    const sl = syl.toLowerCase();
+    for (const v of ['a','e']) {
+      if (sl.includes(v)) return syl.replace(new RegExp(v,'i'), marks[v][t]);
+    }
+    if (sl.includes('ou')) return syl.replace(/o/i, marks['o'][t]);
+    const allVowels = 'aeiouüv';
+    let lastIdx = -1, lastVowel = '';
+    for (let j = 0; j < sl.length; j++) {
+      if (allVowels.includes(sl[j])) { lastIdx = j; lastVowel = sl[j]; }
+    }
+    if (lastIdx >= 0) {
+      const key = (lastVowel === 'ü' || lastVowel === 'v') ? 'v' : lastVowel;
+      if (marks[key]) return syl.substring(0, lastIdx) + marks[key][t] + syl.substring(lastIdx+1);
+    }
+    return syl;
+  });
+}
+
 function normPinyin(s) {
   // Normalize for comparison: both tone-marked and numbered → same form
   return toneToNum(s).replace(/\s+/g,'').toLowerCase();
@@ -859,28 +918,23 @@ function loadWords() {
   const raw = document.getElementById('word-input').value.trim();
   if (!raw) return;
   const newWords = [];
-  raw.split('\n').forEach(line => {
-    line = line.trim();
-    if (!line) return;
-    const parts = line.split(',').map(s => s.trim());
-    const ch = parts[0];
+  // Split by any combo of spaces, commas (incl. Chinese), newlines, semicolons
+  const tokens = raw.split(/[\s,，、\n;；]+/).map(s => s.trim()).filter(Boolean);
+  tokens.forEach(token => {
+    // Keep only Chinese characters from the token
+    const ch = token.replace(/[^\u4e00-\u9fff]/g, '').trim();
     if (!ch) return;
-    let pinyin = parts[1] || '';
-    let meaning = parts[2] || '';
-    // Auto-fill from dictionary if missing
-    if (!pinyin || !meaning) {
-      const entry = DICT[ch];
-      if (entry) {
-        if (!pinyin) pinyin = entry[0];
-        if (!meaning) meaning = entry[1];
-      }
-    }
+    if (newWords.find(w => w.char === ch)) return; // skip duplicates
+    const entry = DICT[ch];
+    const pinyin  = entry ? entry[0] : '';
+    const meaning = entry ? entry[1] : '';
     newWords.push({ char: ch, pinyin, meaning });
   });
   words = newWords;
   saveWords();
   renderChips();
-  document.getElementById('word-count-hint').textContent = `${words.length} 个词已保存`;
+  document.getElementById('word-count-hint').textContent =
+    `${words.length} 个词已保存`;
 }
 
 function saveWords() { localStorage.setItem('chineseWords', JSON.stringify(words)); }
@@ -919,7 +973,8 @@ function editChip(i) {
 }
 
 function saveChipEdit(i) {
-  words[i].pinyin  = document.getElementById('ep-p-' + i).value.trim();
+  // Convert numeric pinyin (wo3) → tone marks (wǒ) on save
+  words[i].pinyin  = numToTone(document.getElementById('ep-p-' + i).value.trim());
   words[i].meaning = document.getElementById('ep-m-' + i).value.trim();
   saveWords();
   renderChips();
@@ -1001,8 +1056,7 @@ function showCard() {
     curAns = w.char;
     inp.placeholder = '汉字...';
     inp.style.fontFamily = "'Noto Serif SC', serif"; inp.style.fontSize = '24px';
-    if (w.meaning && w.pinyin) { hint.textContent = '💡 ' + w.pinyin; hint.style.display = 'block'; }
-    else if (!w.meaning && w.pinyin) { hint.textContent = '⚠️ Перевод не добавлен — показан пиньинь'; hint.style.display = 'block'; }
+    // Пиньинь не показываем — это было бы подсказкой ответа
   } else if (practiceMode === 'pinyin-to-char') {
     document.getElementById('ex-label').textContent = 'Пиньинь → иероглиф';
     pr.textContent = w.pinyin || '(нет пиньиня)';
@@ -1101,6 +1155,46 @@ function detectTheme(wordList) {
   return best[1] > 0 ? best[0] : null;
 }
 
+// Render sentence characters with pinyin subscript.
+// Pass filledChar to replace ___ with the answered character.
+function renderSentenceWithPinyin(sentence, filledChar) {
+  let html = '<div class="ruby-sent">';
+  let i = 0;
+  while (i < sentence.length) {
+    if (sentence.substring(i, i+3) === '___') {
+      if (filledChar) {
+        const py = CHAR_PINYIN[filledChar] || '';
+        html += `<span class="ruby-wrap">
+          <span class="ruby-py">${py}</span>
+          <span class="ruby-zh" style="color:var(--green)">${filledChar}</span>
+        </span>`;
+      } else {
+        html += `<span class="ruby-blank-wrap">
+          <span class="ruby-py">&nbsp;</span>
+          <span class="ruby-blank"></span>
+        </span>`;
+      }
+      i += 3; continue;
+    }
+    const ch = sentence[i];
+    if (/[\u4e00-\u9fff]/.test(ch)) {
+      const py = CHAR_PINYIN[ch] || '';
+      html += `<span class="ruby-wrap">
+        <span class="ruby-py">${py}</span>
+        <span class="ruby-zh">${ch}</span>
+      </span>`;
+    } else if (ch.trim()) {
+      html += `<span class="ruby-wrap">
+        <span class="ruby-py">&nbsp;</span>
+        <span class="ruby-punct">${ch}</span>
+      </span>`;
+    }
+    i++;
+  }
+  html += '</div>';
+  return html;
+}
+
 function startFill() {
   if (!words.length) { alert('请先在词库中添加词汇！'); switchTab('words'); return; }
   fillQueue = buildFillQueue().sort(() => Math.random() - 0.5).slice(0, 20);
@@ -1175,7 +1269,7 @@ function showSentence() {
       </div>
     </div>
     <div class="ex-label">把正确的汉字填入空白 · Fill in the blank</div>
-    <div class="sentence-text">${item.sentence.replace('___','<span class="blank">　　</span>')}</div>
+    <div id="fill-sentence" style="margin:4px 0 8px">${renderSentenceWithPinyin(item.sentence, null)}</div>
     <div class="hint-row">💡 ${item.word.pinyin ? item.word.pinyin + ' · ' : ''}${item.word.meaning || ''}</div>
     <div style="display:flex;gap:10px;align-items:center">
       <input type="text" class="fill-input" id="fill-inp"
@@ -1198,14 +1292,58 @@ function checkFill() {
   const item = fillQueue[fIdx];
   const ok = val === item.answer;
   const fb = document.getElementById('fill-fb');
+
+  // Replace blank with actual answer character (green on correct, red on wrong)
+  const sentEl = document.getElementById('fill-sentence');
+  if (sentEl) {
+    const color = ok ? 'var(--green)' : 'var(--red)';
+    sentEl.innerHTML = renderSentenceWithPinyin(item.sentence, null)
+      .replace('ruby-blank-wrap', 'ruby-blank-wrap')
+      // re-render fully with the answer filled
+      .replace(
+        /<span class="ruby-blank-wrap">[\s\S]*?<\/span>/,
+        (() => {
+          const py = CHAR_PINYIN[item.answer] || '';
+          return `<span class="ruby-wrap">
+            <span class="ruby-py">${py}</span>
+            <span class="ruby-zh" style="color:${color}">${item.answer}</span>
+          </span>`;
+        })()
+      );
+    // Simpler re-render
+    sentEl.innerHTML = (() => {
+      let html = '<div class="ruby-sent">';
+      let s = item.sentence, i = 0;
+      while (i < s.length) {
+        if (s.substring(i,i+3) === '___') {
+          const py = CHAR_PINYIN[item.answer] || '';
+          html += `<span class="ruby-wrap">
+            <span class="ruby-py">${py}</span>
+            <span class="ruby-zh" style="color:${color}">${item.answer}</span>
+          </span>`;
+          i+=3; continue;
+        }
+        const ch = s[i];
+        if (/[\u4e00-\u9fff]/.test(ch)) {
+          html += `<span class="ruby-wrap"><span class="ruby-py">${CHAR_PINYIN[ch]||''}</span><span class="ruby-zh">${ch}</span></span>`;
+        } else if (ch.trim()) {
+          html += `<span class="ruby-wrap"><span class="ruby-py">&nbsp;</span><span class="ruby-punct">${ch}</span></span>`;
+        }
+        i++;
+      }
+      return html + '</div>';
+    })();
+  }
+
   if (ok) {
     fScore.c++; inp.classList.add('correct');
     fb.textContent = '✓ 正确！🎉'; fb.className = 'feedback correct';
+    document.getElementById('fill-tr').style.display = 'block'; // перевод только при правильном
   } else {
     fScore.w++; inp.classList.add('wrong');
     fb.textContent = `✗ 答案是: ${item.answer}`; fb.className = 'feedback wrong';
+    // перевод не показываем при ошибке
   }
-  document.getElementById('fill-tr').style.display = 'block';
   document.getElementById('fill-next').style.display = 'inline-flex';
 }
 
