@@ -458,6 +458,12 @@
             <div class="mode-title">Иероглиф → пиньинь</div>
             <div class="mode-desc">Видишь иероглиф, пишешь пиньинь</div>
           </div>
+          <div class="mode-card" onclick="selectMode(this,'mixed')" data-mode="mixed"
+               style="grid-column:1/-1;background:linear-gradient(135deg,var(--redbg),var(--goldbg));border-color:var(--gold)">
+            <div class="mode-icon" style="color:var(--gold)">混合</div>
+            <div class="mode-title">Mixed · Смешанный режим</div>
+            <div class="mode-desc">Все типы заданий вперемешку — иероглиф, перевод, пиньинь</div>
+          </div>
         </div>
         <button class="btn btn-red" style="width:100%;justify-content:center;padding:14px;font-size:15px" onclick="startPractice()">
           ▶ 开始练习 · Start Practice
@@ -798,7 +804,7 @@ Object.entries(DICT).forEach(([chars, [py]]) => {
 // ─────────────────────────────────────────────
 let words = JSON.parse(localStorage.getItem('chineseWords') || '[]');
 let practiceMode = 'char-to-meaning';
-let queue = [], qIdx = 0, score = {c:0,w:0}, answered = false, curAns = '';
+let queue = [], qIdx = 0, score = {c:0,w:0}, answered = false, curAns = '', curAnsAll = [], curMode = 'char-to-meaning';
 let hskLevel = 1;
 let fillQueue = [], fIdx = 0, fScore = {c:0,w:0}, fAnswered = false;
 
@@ -1185,27 +1191,38 @@ function showCard() {
   pr.className = 'ex-prompt';
   const hint = document.getElementById('ex-hint');
 
-  if (practiceMode === 'char-to-meaning') {
+  // For mixed mode: pick a random real mode per card
+  const REAL_MODES = ['char-to-meaning','meaning-to-char','pinyin-to-char','char-to-pinyin'];
+  curMode = (practiceMode === 'mixed')
+    ? REAL_MODES[Math.floor(Math.random() * REAL_MODES.length)]
+    : practiceMode;
+
+  // Build all accepted answers for meanings (split by / · , parentheses)
+  const meaningVariants = (w.meaning || '').split(/[\/\|]/).map(s =>
+    s.replace(/\(.*?\)/g,'').trim().toLowerCase()
+  ).filter(Boolean);
+  curAnsAll = [];
+
+  if (curMode === 'char-to-meaning') {
     document.getElementById('ex-label').textContent = 'Иероглиф → перевод на русском';
     pr.textContent = w.char;
-    curAns = (w.meaning || '').toLowerCase();
+    curAnsAll = meaningVariants;
+    curAns = curAnsAll[0] || '';
     inp.placeholder = 'перевод...';
     inp.style.fontFamily = "'Noto Sans SC', sans-serif"; inp.style.fontSize = '18px';
     if (w.pinyin) { hint.textContent = '💡 ' + w.pinyin; hint.style.display = 'block'; }
-  } else if (practiceMode === 'meaning-to-char') {
+  } else if (curMode === 'meaning-to-char') {
     document.getElementById('ex-label').textContent = 'Напиши иероглиф для:';
-    const display = w.meaning || w.pinyin || '(нет перевода)';
-    pr.textContent = display;
+    pr.textContent = w.meaning || w.pinyin || '(нет перевода)';
     pr.className = 'ex-prompt meaning';
-    curAns = w.char;
+    curAns = w.char; curAnsAll = [w.char];
     inp.placeholder = '汉字...';
     inp.style.fontFamily = "'Noto Serif SC', serif"; inp.style.fontSize = '24px';
-    // Пиньинь не показываем — это было бы подсказкой ответа
-  } else if (practiceMode === 'pinyin-to-char') {
+  } else if (curMode === 'pinyin-to-char') {
     document.getElementById('ex-label').textContent = 'Пиньинь → иероглиф';
     pr.textContent = w.pinyin || '(нет пиньиня)';
     pr.className = 'ex-prompt pinyin';
-    curAns = w.char;
+    curAns = w.char; curAnsAll = [w.char];
     inp.placeholder = '汉字...';
     inp.style.fontFamily = "'Noto Serif SC', serif"; inp.style.fontSize = '24px';
     if (w.meaning) { hint.textContent = '💡 ' + w.meaning; hint.style.display = 'block'; }
@@ -1213,6 +1230,7 @@ function showCard() {
     document.getElementById('ex-label').textContent = 'Иероглиф → пиньинь цифрами';
     pr.textContent = w.char;
     curAns = toneToNum(w.pinyin || '');
+    curAnsAll = [curAns];
     inp.placeholder = 'напр. wo3, fei1ji1...';
     inp.style.fontFamily = "'Noto Sans SC', sans-serif"; inp.style.fontSize = '20px';
     if (w.meaning) { hint.textContent = '💡 ' + w.meaning; hint.style.display = 'block'; }
@@ -1227,9 +1245,11 @@ function checkAnswer() {
   answered = true; inp.disabled = true;
 
   let ok;
-  if (practiceMode === 'char-to-meaning') {
-    ok = curAns === val.toLowerCase().trim();
-  } else if (practiceMode === 'char-to-pinyin') {
+  if (curMode === 'char-to-meaning') {
+    const inp_lc = val.toLowerCase().trim();
+    // Accept any variant: "телефон/звонок" → correct if user writes "телефон" OR "звонок"
+    ok = curAnsAll.some(v => v === inp_lc);
+  } else if (curMode === 'char-to-pinyin') {
     ok = normPinyin(val) === normPinyin(curAns);
   } else {
     ok = norm(val) === norm(curAns);
@@ -1414,7 +1434,6 @@ function showSentence() {
     </div>
     <div class="ex-label">把正确的汉字填入空白 · Fill in the blank</div>
     <div id="fill-sentence" style="margin:4px 0 8px">${renderSentenceWithPinyin(item.sentence, null)}</div>
-    <div class="hint-row">💡 ${item.word.pinyin ? item.word.pinyin + ' · ' : ''}${item.word.meaning || ''}</div>
     <div style="display:flex;gap:10px;align-items:center">
       <input type="text" class="fill-input" id="fill-inp"
         placeholder="写汉字..." onkeydown="handleFillKey(event)">
