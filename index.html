@@ -1295,7 +1295,7 @@ function checkAnswer() {
     score.w++; inp.classList.add('wrong');
     fb.textContent = '✗ Неверно'; fb.className = 'feedback wrong';
     const rev = document.getElementById('ex-answer-reveal');
-    const numbered = w.pinyin ? toneToNum(w.pinyin) + ' · ' + w.pinyin : '';
+    const numbered = w.pinyin ? syllabicEnd(toneToNum(w.pinyin)) + ' · ' + w.pinyin : '';
     rev.innerHTML = `<div class="rev-char">${w.char}</div>` +
       (numbered ? `<div class="rev-pinyin">${numbered}</div>` : '') +
       (w.meaning ? `<div class="rev-meaning">${w.meaning}</div>` : '');
