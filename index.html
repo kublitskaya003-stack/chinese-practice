@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>汉字练习 · Chinese Practice</title>
   <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/pinyin-pro/dist/index.js"></script>
   <style>
     :root {
       --red:     #c0392b;
@@ -959,27 +960,69 @@ function norm(s) {
 // ─────────────────────────────────────────────
 //  WORD BANK
 // ─────────────────────────────────────────────
-function loadWords() {
+// ── Auto pinyin via pinyin-pro (handles any character) ──────────────────
+function getPinyin(chars) {
+  try {
+    if (window.pinyinPro) {
+      return window.pinyinPro.pinyin(chars, { toneType: 'symbol', separator: '' });
+    }
+  } catch(e) {}
+  // fallback to DICT
+  const e = DICT[chars];
+  return e ? e[0] : '';
+}
+
+// ── Auto translation: DICT → MyMemory API fallback ───────────────────────
+async function getTranslation(chars) {
+  // 1. Built-in dictionary (instant)
+  const entry = DICT[chars];
+  if (entry) return entry[1];
+  // 2. Free translation API
+  try {
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chars)}&langpair=zh|ru`;
+    const r = await fetch(url, { signal: AbortSignal.timeout(4000) });
+    const data = await r.json();
+    if (data.responseStatus === 200) {
+      const t = data.responseData.translatedText || '';
+      // MyMemory sometimes returns English for obscure words — accept anyway
+      return t;
+    }
+  } catch(e) {}
+  return '';
+}
+
+async function loadWords() {
   const raw = document.getElementById('word-input').value.trim();
   if (!raw) return;
+
+  // Split by ANY delimiter: space, comma, newline, Chinese punctuation
+  const tokens = raw.split(/[\s,，、。；;！!？?\n\r]+/).map(s => s.trim()).filter(Boolean);
+  // Extract Chinese-only tokens, deduplicate
+  const chars = [...new Set(
+    tokens.map(t => t.replace(/[^\u4e00-\u9fff]/g, '').trim()).filter(Boolean)
+  )];
+  if (!chars.length) return;
+
+  // Show loading state
+  const saveBtn = document.querySelector('[onclick="loadWords()"]');
+  const hint = document.getElementById('word-count-hint');
+  if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = '⏳ Загружаю...'; }
+  hint.textContent = `Обрабатываю ${chars.length} слов...`;
+
   const newWords = [];
-  // Split by any combo of spaces, commas (incl. Chinese), newlines, semicolons
-  const tokens = raw.split(/[\s,，、\n;；]+/).map(s => s.trim()).filter(Boolean);
-  tokens.forEach(token => {
-    // Keep only Chinese characters from the token
-    const ch = token.replace(/[^\u4e00-\u9fff]/g, '').trim();
-    if (!ch) return;
-    if (newWords.find(w => w.char === ch)) return; // skip duplicates
-    const entry = DICT[ch];
-    const pinyin  = entry ? entry[0] : '';
-    const meaning = entry ? entry[1] : '';
+  for (let i = 0; i < chars.length; i++) {
+    const ch = chars[i];
+    hint.textContent = `${i+1} / ${chars.length} — ${ch}`;
+    const pinyin  = getPinyin(ch);
+    const meaning = await getTranslation(ch);
     newWords.push({ char: ch, pinyin, meaning });
-  });
+  }
+
   words = newWords;
   saveWords();
   renderChips();
-  document.getElementById('word-count-hint').textContent =
-    `${words.length} 个词已保存`;
+  if (saveBtn) { saveBtn.disabled = false; saveBtn.innerHTML = '✓ 保存词汇 · Save'; }
+  hint.textContent = `${words.length} 个词已保存`;
 }
 
 function saveWords() { localStorage.setItem('chineseWords', JSON.stringify(words)); }
