@@ -693,7 +693,54 @@ const DICT = {
   '酒店':['jiǔdiàn','гостиница/отель'],'入住':['rùzhù','заселиться'],
   '退房':['tuìfáng','освободить номер'],'护照':['hùzhào','паспорт'],
   '单程':['dānchéng','в одну сторону'],'往返':['wǎngfǎn','туда-обратно'],
+  // Связь и технологии
+  '电话':['diànhuà','телефон/звонок'],'打电话':['dǎ diànhuà','звонить'],
+  '手机':['shǒujī','мобильный телефон'],'电脑':['diànnǎo','компьютер'],
+  '网络':['wǎngluò','сеть/интернет'],'互联网':['hùliánwǎng','интернет'],
+  '应用':['yìngyòng','приложение'],'下载':['xiàzài','скачивать'],
+  '密码':['mìmǎ','пароль'],'账号':['zhànghào','аккаунт'],
+  '照片':['zhàopiàn','фотография'],'视频':['shìpín','видео'],
+  '发送':['fāsòng','отправить'],'接收':['jiēshōu','получить'],
+  '号码':['hàomǎ','номер'],'地址':['dìzhǐ','адрес'],
+  // Общие часто используемые
+  '地方':['dìfāng','место'],'方法':['fāngfǎ','метод/способ'],
+  '情况':['qíngkuàng','ситуация/положение'],'关系':['guānxi','отношение/связь'],
+  '感觉':['gǎnjué','чувство/ощущение'],'机会':['jīhuì','возможность/шанс'],
+  '重要':['zhòngyào','важный'],'应该':['yīnggāi','должен/следует'],
+  '结束':['jiéshù','заканчивать'],'成功':['chénggōng','успех/успешный'],
+  '失败':['shībài','провал/потерпеть неудачу'],'要求':['yāoqiú','требование'],
+  '建议':['jiànyì','предлагать/совет'],'需要':['xūyào','нужен/требоваться'],
+  '问题':['wèntí','вопрос/проблема'],'方向':['fāngxiàng','направление'],
+  '位置':['wèizhì','позиция/место'],'地图':['dìtú','карта'],
+  '距离':['jùlí','расстояние'],'速度':['sùdù','скорость'],
+  '价格':['jiàgé','цена'],'质量':['zhìliàng','качество'],
+  '服务':['fúwù','сервис/обслуживание'],'客人':['kèrén','гость'],
+  '主人':['zhǔrén','хозяин'],'客服':['kèfú','служба поддержки'],
+  '预约':['yùyuē','записаться/бронировать'],'取消':['qǔxiāo','отменить'],
+  '确认':['quèrèn','подтвердить'],'同意':['tóngyì','согласиться'],
+  '拒绝':['jùjué','отказать'],'回答':['huídá','ответить'],
+  '问':['wèn','спросить'],'答':['dá','ответить'],
+  '聊天':['liáotiān','болтать/чатиться'],'交流':['jiāoliú','общаться/обмениваться'],
+  // Описание людей
+  '漂亮':['piàoliang','красивый'],'可爱':['kě\'ài','милый/симпатичный'],
+  '聪明':['cōngmíng','умный'],'努力':['nǔlì','усердный/стараться'],
+  '认真':['rènzhēn','серьёзный/старательный'],'有趣':['yǒuqù','интересный'],
+  '有名':['yǒumíng','знаменитый'],'有钱':['yǒuqián','богатый'],
+  '着急':['zháojí','торопиться/волноваться'],'害怕':['hàipà','бояться'],
+  '高兴':['gāoxìng','радостный'],'难过':['nánguò','огорчённый/грустный'],
+  '生气':['shēngqì','злой/сердиться'],'伤心':['shāngxīn','расстроенный'],
+  // Глаголы движения и действия
+  '出发':['chūfā','отправляться'],'到达':['dàodá','прибывать'],
+  '离开':['líkāi','уходить/покидать'],'回来':['huílai','возвращаться'],
+  '经过':['jīngguò','проходить мимо'],'路过':['lùguò','проходить мимо'],
+  '参加':['cānjiā','участвовать'],'举行':['jǔxíng','проводить (мероприятие)'],
+  '帮忙':['bāngmáng','помогать'],'照顾':['zhàogù','заботиться'],
+  '联系':['liánxi','связываться'],'通知':['tōngzhī','уведомлять'],
+  '解决':['jiějué','решать (проблему)'],'处理':['chǔlǐ','обрабатывать/решать'],
+  '提高':['tígāo','повышать'],'改变':['gǎibiàn','изменять'],
+  '检查':['jiǎnchá','проверять'],'测试':['cèshì','тестировать'],
   // Деньги и валюта
+  '钱':['qián','деньги'],'人民币':['rénmínbì','юань (RMB)'],
   '钱':['qián','деньги'],'人民币':['rénmínbì','юань (RMB)'],
   '元':['yuán','юань'],'块':['kuài','юань (разг.)'],
   '角':['jiǎo','цзяо (0,1 юаня)'],'毛':['máo','цзяо (разг.)'],
@@ -972,22 +1019,31 @@ function getPinyin(chars) {
   return e ? e[0] : '';
 }
 
-// ── Auto translation: DICT → MyMemory API fallback ───────────────────────
+// ── Auto translation: DICT → Google Translate → MyMemory fallback ─────────
 async function getTranslation(chars) {
-  // 1. Built-in dictionary (instant)
+  // 1. Built-in dictionary (instant, most reliable)
   const entry = DICT[chars];
   if (entry) return entry[1];
-  // 2. Free translation API
+
+  // 2. Google Translate (unofficial, best quality for zh→ru)
+  try {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=zh-CN&tl=ru&dt=t&q=${encodeURIComponent(chars)}`;
+    const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
+    const data = await r.json();
+    const result = data?.[0]?.map(x => x?.[0]).filter(Boolean).join('');
+    if (result) return result;
+  } catch(e) {}
+
+  // 3. MyMemory fallback
   try {
     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chars)}&langpair=zh|ru`;
-    const r = await fetch(url, { signal: AbortSignal.timeout(4000) });
+    const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
     const data = await r.json();
-    if (data.responseStatus === 200) {
-      const t = data.responseData.translatedText || '';
-      // MyMemory sometimes returns English for obscure words — accept anyway
-      return t;
+    if (data.responseStatus === 200 && data.responseData?.translatedText) {
+      return data.responseData.translatedText;
     }
   } catch(e) {}
+
   return '';
 }
 
