@@ -809,6 +809,17 @@ Object.entries(DICT).forEach(([chars, [py]]) => {
   if (chars.length === 1) CHAR_PINYIN[chars] = py;
 });
 
+// Get pinyin for a single character — DICT first, then pinyin-pro (covers all 50k+ chars)
+function getCharPinyin(ch) {
+  if (CHAR_PINYIN[ch]) return CHAR_PINYIN[ch];
+  if (window.pinyinPro) {
+    try {
+      return window.pinyinPro.pinyin(ch, { toneType: 'symbol', separator: '' });
+    } catch(e) {}
+  }
+  return '';
+}
+
 // ─────────────────────────────────────────────
 //  STATE
 // ─────────────────────────────────────────────
@@ -1344,7 +1355,7 @@ function renderSentenceWithPinyin(sentence, filledChar) {
   while (i < sentence.length) {
     if (sentence.substring(i, i+3) === '___') {
       if (filledChar) {
-        const py = CHAR_PINYIN[filledChar] || '';
+        const py = getCharPinyin(filledChar);
         html += `<span class="ruby-wrap">
           <span class="ruby-py">${py}</span>
           <span class="ruby-zh" style="color:var(--green)">${filledChar}</span>
@@ -1359,7 +1370,7 @@ function renderSentenceWithPinyin(sentence, filledChar) {
     }
     const ch = sentence[i];
     if (/[\u4e00-\u9fff]/.test(ch)) {
-      const py = CHAR_PINYIN[ch] || '';
+      const py = getCharPinyin(ch);
       html += `<span class="ruby-wrap">
         <span class="ruby-py">${py}</span>
         <span class="ruby-zh">${ch}</span>
@@ -1483,7 +1494,7 @@ function checkFill() {
       .replace(
         /<span class="ruby-blank-wrap">[\s\S]*?<\/span>/,
         (() => {
-          const py = CHAR_PINYIN[item.answer] || '';
+          const py = getCharPinyin(item.answer);
           return `<span class="ruby-wrap">
             <span class="ruby-py">${py}</span>
             <span class="ruby-zh" style="color:${color}">${item.answer}</span>
@@ -1496,7 +1507,7 @@ function checkFill() {
       let s = item.sentence, i = 0;
       while (i < s.length) {
         if (s.substring(i,i+3) === '___') {
-          const py = CHAR_PINYIN[item.answer] || '';
+          const py = getCharPinyin(item.answer);
           html += `<span class="ruby-wrap">
             <span class="ruby-py">${py}</span>
             <span class="ruby-zh" style="color:${color}">${item.answer}</span>
@@ -1505,7 +1516,7 @@ function checkFill() {
         }
         const ch = s[i];
         if (/[\u4e00-\u9fff]/.test(ch)) {
-          html += `<span class="ruby-wrap"><span class="ruby-py">${CHAR_PINYIN[ch]||''}</span><span class="ruby-zh">${ch}</span></span>`;
+          html += `<span class="ruby-wrap"><span class="ruby-py">${getCharPinyin(ch)}</span><span class="ruby-zh">${ch}</span></span>`;
         } else if (ch.trim()) {
           html += `<span class="ruby-wrap"><span class="ruby-py">&nbsp;</span><span class="ruby-punct">${ch}</span></span>`;
         }
