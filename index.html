@@ -1533,7 +1533,7 @@ function checkFill() {
   } else {
     fScore.w++; inp.classList.add('wrong');
     fb.textContent = `✗ 答案是: ${item.answer}`; fb.className = 'feedback wrong';
-    // перевод не показываем при ошибке
+    document.getElementById('fill-tr').style.display = 'block';
   }
   document.getElementById('fill-next').style.display = 'inline-flex';
 }
