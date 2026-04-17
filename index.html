@@ -1526,14 +1526,21 @@ function checkFill() {
     })();
   }
 
+  const trHtml = item.translation
+    ? `<div style="margin-top:8px;font-size:13px;color:var(--text2);background:var(--bg2);
+         padding:8px 16px;border-radius:8px;line-height:1.5">
+         📖 ${item.translation}
+       </div>`
+    : '';
+
   if (ok) {
     fScore.c++; inp.classList.add('correct');
-    fb.textContent = '✓ 正确！🎉'; fb.className = 'feedback correct';
-    document.getElementById('fill-tr').style.display = 'block'; // перевод только при правильном
+    fb.className = 'feedback correct';
+    fb.innerHTML = `<span>✓ 正确！🎉</span>${trHtml}`;
   } else {
     fScore.w++; inp.classList.add('wrong');
-    fb.textContent = `✗ 答案是: ${item.answer}`; fb.className = 'feedback wrong';
-    document.getElementById('fill-tr').style.display = 'block';
+    fb.className = 'feedback wrong';
+    fb.innerHTML = `<span>✗ 答案是: <strong>${item.answer}</strong></span>${trHtml}`;
   }
   document.getElementById('fill-next').style.display = 'inline-flex';
 }
