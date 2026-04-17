@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>汉字练习 · Chinese Practice</title>
   <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/pinyin-pro/dist/index.js"></script>
@@ -1526,22 +1529,25 @@ function checkFill() {
     })();
   }
 
-  const trHtml = item.translation
-    ? `<div style="margin-top:8px;font-size:13px;color:var(--text2);background:var(--bg2);
-         padding:8px 16px;border-radius:8px;line-height:1.5">
-         📖 ${item.translation}
-       </div>`
-    : '';
-
   if (ok) {
     fScore.c++; inp.classList.add('correct');
-    fb.className = 'feedback correct';
-    fb.innerHTML = `<span>✓ 正确！🎉</span>${trHtml}`;
+    fb.textContent = '✓ 正确！🎉'; fb.className = 'feedback correct';
   } else {
     fScore.w++; inp.classList.add('wrong');
-    fb.className = 'feedback wrong';
-    fb.innerHTML = `<span>✗ 答案是: <strong>${item.answer}</strong></span>${trHtml}`;
+    fb.textContent = `✗ 答案是: ${item.answer}`; fb.className = 'feedback wrong';
   }
+
+  // Всегда показываем перевод после ответа (и верного, и неверного)
+  if (item.translation) {
+    const existing = document.getElementById('fill-translation-display');
+    if (existing) existing.remove();
+    const trEl = document.createElement('div');
+    trEl.id = 'fill-translation-display';
+    trEl.style.cssText = 'margin-top:10px;font-size:14px;color:#6b4c30;background:#f3efe8;padding:10px 18px;border-radius:10px;line-height:1.6;text-align:center;width:100%';
+    trEl.textContent = '📖 ' + item.translation;
+    fb.parentNode.insertBefore(trEl, fb.nextSibling);
+  }
+
   document.getElementById('fill-next').style.display = 'inline-flex';
 }
 
