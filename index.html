@@ -396,7 +396,7 @@
   <div class="logo-char">汉</div>
   <div class="logo-text">
     <h1>汉字练习</h1>
-    <p>Chinese Character Practice</p>
+    <p>Chinese Character Practice by Anastasia 老师</p>
   </div>
 </header>
 
@@ -921,7 +921,101 @@ const DB = [
   {t:"我们需要___这件事情。",w:"讨论",tr:"Нам нужно обсудить это дело.",hsk:3},
   {t:"签证要在出发___提前申请。",w:"以前",tr:"Визу нужно подать заранее до отъезда.",hsk:3},
   {t:"旅行___要做好准备。",w:"以前",tr:"До путешествия нужно хорошо подготовиться.",hsk:3},
+  // ── HSK 4 ──
+  {t:"随着___的发展，人们的生活水平不断提高。",w:"经济",tr:"По мере развития экономики уровень жизни людей постоянно растёт.",hsk:4},
+  {t:"这项___对环境造成了严重的影响。",w:"政策",tr:"Эта политика нанесла серьёзный вред окружающей среде.",hsk:4},
+  {t:"我们应该___地看待问题，不能只看表面。",w:"客观",tr:"Нужно смотреть на проблемы объективно, а не только с виду.",hsk:4},
+  {t:"他的___很好，从来不说谎。",w:"品质",tr:"У него хороший характер, он никогда не лжёт.",hsk:4},
+  {t:"这次会议的主要___是讨论公司未来的发展。",w:"目的",tr:"Главная цель этого совещания — обсудить будущее развитие компании.",hsk:4},
+  {t:"她___了两年才拿到这个职位。",w:"努力",tr:"Она два года упорно трудилась, чтобы получить эту должность.",hsk:4},
+  {t:"虽然他___很多困难，但是从未放弃。",w:"面对",tr:"Хотя он сталкивался со многими трудностями, он никогда не сдавался.",hsk:4},
+  {t:"请根据实际情况___你的计划。",w:"调整",tr:"Пожалуйста, скорректируйте свой план в соответствии с реальной ситуацией.",hsk:4},
+  {t:"这家公司在市场上有很强的___。",w:"竞争力",tr:"Эта компания обладает высокой конкурентоспособностью на рынке.",hsk:4},
+  {t:"他的___让我很受启发。",w:"经历",tr:"Его опыт меня очень вдохновил.",hsk:4},
+  {t:"我们需要认真___这个问题的解决方法。",w:"研究",tr:"Нам нужно серьёзно изучить способы решения этой проблемы.",hsk:4},
+  {t:"___是成功的关键，没有捷径。",w:"坚持",tr:"Упорство — ключ к успеху, коротких путей нет.",hsk:4},
+  {t:"请把你的___告诉我，我想了解你的想法。",w:"意见",tr:"Скажи мне своё мнение, хочу узнать твои мысли.",hsk:4},
+  {t:"我对这件事的___是积极的。",w:"态度",tr:"Моё отношение к этому делу позитивное.",hsk:4},
+  // ── HSK 5 ──
+  {t:"全球___的加速推动了国际贸易的增长。",w:"化",tr:"Ускорение глобализации стимулировало рост международной торговли.",hsk:5},
+  {t:"科学技术的___改变了人们的生活方式。",w:"进步",tr:"Прогресс науки и технологий изменил образ жизни людей.",hsk:5},
+  {t:"他对这个问题做了深入的___。",w:"分析",tr:"Он провёл глубокий анализ этой проблемы.",hsk:5},
+  {t:"这份报告___了当前市场的主要趋势。",w:"揭示",tr:"Этот доклад выявил основные тенденции текущего рынка.",hsk:5},
+  {t:"我们要___地评价历史，不能以偏概全。",w:"全面",tr:"Нужно всесторонне оценивать историю, нельзя судить по частному случаю.",hsk:5},
+  {t:"在这个___中，沟通能力至关重要。",w:"领域",tr:"В этой области коммуникативные навыки имеют решающее значение.",hsk:5},
+  {t:"他们的合作___了双方的共同利益。",w:"体现",tr:"Их сотрудничество отразило общие интересы обеих сторон.",hsk:5},
+  {t:"这项研究___了以往的所有理论。",w:"挑战",tr:"Это исследование поставило под сомнение все предыдущие теории.",hsk:5},
+  {t:"面对___，我们必须保持冷静。",w:"压力",tr:"Перед лицом давления мы должны сохранять спокойствие.",hsk:5},
+  {t:"他的___对整个行业产生了深远影响。",w:"贡献",tr:"Его вклад оказал глубокое влияние на всю отрасль.",hsk:5},
+  {t:"这种___现象在现代社会越来越普遍。",w:"矛盾",tr:"Это противоречивое явление в современном обществе встречается всё чаще.",hsk:5},
+  {t:"___教育资源对农村地区尤为重要。",w:"优质",tr:"Качественные образовательные ресурсы особенно важны для сельских районов.",hsk:5},
+  // ── HSK 6 ──
+  {t:"这一___折射出社会深层次的价值观变迁。",w:"现象",tr:"Это явление отражает глубинные изменения общественных ценностей.",hsk:6},
+  {t:"从长远来看，___发展才是根本之道。",w:"可持续",tr:"В долгосрочной перспективе устойчивое развитие является фундаментальным путём.",hsk:6},
+  {t:"该政策的实施需要各部门的密切___。",w:"协调",tr:"Реализация этой политики требует тесной координации всех ведомств.",hsk:6},
+  {t:"他的论文___了这一领域长期存在的争议。",w:"化解",tr:"Его диссертация урегулировала давние споры в этой области.",hsk:6},
+  {t:"我们必须___地应对气候变化带来的挑战。",w:"系统性",tr:"Мы должны системно реагировать на вызовы, связанные с изменением климата.",hsk:6},
+  {t:"这种___思维方式制约了创新能力的发展。",w:"固化",tr:"Такое закостенелое мышление сдерживает развитие инновационных способностей.",hsk:6},
+  {t:"国际社会对该地区局势的___日益深化。",w:"关注",tr:"Озабоченность международного сообщества ситуацией в этом регионе неуклонно растёт.",hsk:6},
+  {t:"这项技术的___标志着一个新时代的到来。",w:"突破",tr:"Прорыв в этой технологии знаменует наступление новой эры.",hsk:6},
+  {t:"文化的___与融合是历史发展的必然趋势。",w:"碰撞",tr:"Столкновение и слияние культур — неизбежная тенденция исторического развития.",hsk:6},
+  {t:"这位学者的___为后来的研究奠定了基础。",w:"著作",tr:"Труды этого учёного заложили фундамент для последующих исследований.",hsk:6},
 ];
+
+// Built-in HSK vocabulary for each level (used when no word bank or no DB match)
+const HSK_VOCAB = {
+  1:[
+    {char:'我',pinyin:'wǒ',meaning:'я'},{char:'你',pinyin:'nǐ',meaning:'ты'},
+    {char:'他',pinyin:'tā',meaning:'он'},{char:'好',pinyin:'hǎo',meaning:'хороший'},
+    {char:'去',pinyin:'qù',meaning:'идти'},{char:'来',pinyin:'lái',meaning:'приходить'},
+    {char:'吃',pinyin:'chī',meaning:'есть'},{char:'喝',pinyin:'hē',meaning:'пить'},
+    {char:'看',pinyin:'kàn',meaning:'смотреть'},{char:'说',pinyin:'shuō',meaning:'говорить'},
+    {char:'今天',pinyin:'jīntiān',meaning:'сегодня'},{char:'朋友',pinyin:'péngyou',meaning:'друг'},
+    {char:'学生',pinyin:'xuésheng',meaning:'студент'},{char:'老师',pinyin:'lǎoshī',meaning:'учитель'},
+    {char:'米饭',pinyin:'mǐfàn',meaning:'рис'},{char:'飞机',pinyin:'fēijī',meaning:'самолёт'},
+    {char:'医院',pinyin:'yīyuàn',meaning:'больница'},{char:'家',pinyin:'jiā',meaning:'дом'},
+  ],
+  2:[
+    {char:'因为',pinyin:'yīnwèi',meaning:'потому что'},{char:'已经',pinyin:'yǐjīng',meaning:'уже'},
+    {char:'每天',pinyin:'měitiān',meaning:'каждый день'},{char:'觉得',pinyin:'juéde',meaning:'думать/чувствовать'},
+    {char:'面条',pinyin:'miàntiáo',meaning:'лапша'},{char:'考试',pinyin:'kǎoshì',meaning:'экзамен'},
+    {char:'公司',pinyin:'gōngsī',meaning:'компания'},{char:'生病',pinyin:'shēngbìng',meaning:'заболеть'},
+    {char:'便宜',pinyin:'piányí',meaning:'дёшевый'},{char:'贵',pinyin:'guì',meaning:'дорогой'},
+    {char:'旅游',pinyin:'lǚyóu',meaning:'путешествие'},{char:'等',pinyin:'děng',meaning:'ждать'},
+    {char:'哥哥',pinyin:'gēgē',meaning:'старший брат'},{char:'机场',pinyin:'jīchǎng',meaning:'аэропорт'},
+  ],
+  3:[
+    {char:'坚持',pinyin:'jiānchí',meaning:'настаивать/упорствовать'},{char:'解释',pinyin:'jiěshì',meaning:'объяснять'},
+    {char:'认为',pinyin:'rènwéi',meaning:'считать'},{char:'讨论',pinyin:'tǎolùn',meaning:'обсуждать'},
+    {char:'护照',pinyin:'hùzhào',meaning:'паспорт'},{char:'预订',pinyin:'yùdìng',meaning:'бронировать'},
+    {char:'非常',pinyin:'fēicháng',meaning:'очень/крайне'},{char:'健康',pinyin:'jiànkāng',meaning:'здоровье'},
+    {char:'成绩',pinyin:'chéngjì',meaning:'успеваемость'},{char:'图书馆',pinyin:'túshūguǎn',meaning:'библиотека'},
+    {char:'以前',pinyin:'yǐqián',meaning:'раньше/до этого'},{char:'超市',pinyin:'chāoshì',meaning:'супермаркет'},
+  ],
+  4:[
+    {char:'经济',pinyin:'jīngjì',meaning:'экономика'},{char:'政策',pinyin:'zhèngcè',meaning:'политика/меры'},
+    {char:'目的',pinyin:'mùdì',meaning:'цель'},{char:'态度',pinyin:'tàidu',meaning:'отношение/позиция'},
+    {char:'意见',pinyin:'yìjiàn',meaning:'мнение'},{char:'经历',pinyin:'jīnglì',meaning:'опыт/переживания'},
+    {char:'研究',pinyin:'yánjiū',meaning:'исследование'},{char:'调整',pinyin:'tiáozhěng',meaning:'корректировать'},
+    {char:'面对',pinyin:'miàndùi',meaning:'сталкиваться/лицом к лицу'},{char:'努力',pinyin:'nǔlì',meaning:'усилие/стараться'},
+    {char:'竞争力',pinyin:'jìngzhēnglì',meaning:'конкурентоспособность'},{char:'品质',pinyin:'pǐnzhì',meaning:'качество/характер'},
+  ],
+  5:[
+    {char:'分析',pinyin:'fēnxī',meaning:'анализировать'},{char:'领域',pinyin:'lǐngyù',meaning:'область/сфера'},
+    {char:'贡献',pinyin:'gòngxiàn',meaning:'вклад'},{char:'压力',pinyin:'yālì',meaning:'давление/стресс'},
+    {char:'矛盾',pinyin:'máodùn',meaning:'противоречие'},{char:'揭示',pinyin:'jiēshì',meaning:'раскрывать/обнаруживать'},
+    {char:'进步',pinyin:'jìnbù',meaning:'прогресс'},{char:'体现',pinyin:'tǐxiàn',meaning:'воплощать/отражать'},
+    {char:'全面',pinyin:'quánmiàn',meaning:'всесторонний'},{char:'优质',pinyin:'yōuzhì',meaning:'высококачественный'},
+    {char:'挑战',pinyin:'tiǎozhàn',meaning:'вызов/оспаривать'},{char:'趋势',pinyin:'qūshì',meaning:'тенденция'},
+  ],
+  6:[
+    {char:'现象',pinyin:'xiànxiàng',meaning:'явление'},{char:'协调',pinyin:'xiétiáo',meaning:'координировать'},
+    {char:'突破',pinyin:'tūpò',meaning:'прорыв'},{char:'著作',pinyin:'zhùzuò',meaning:'труды/произведения'},
+    {char:'关注',pinyin:'guānzhù',meaning:'внимание/забота'},{char:'化解',pinyin:'huàjiě',meaning:'урегулировать/растворять'},
+    {char:'碰撞',pinyin:'pèngzhuàng',meaning:'столкновение'},{char:'可持续',pinyin:'kě chí xù',meaning:'устойчивый'},
+    {char:'固化',pinyin:'gùhuà',meaning:'закостенеть/отвердевать'},{char:'系统性',pinyin:'xìtǒngxìng',meaning:'системный'},
+  ],
+};
 
 const TMPL = {
   1:[
@@ -1391,19 +1485,19 @@ function renderSentenceWithPinyin(sentence, filledChar) {
 }
 
 function startFill() {
-  if (!words.length) { alert('请先在词库中添加词汇！'); switchTab('words'); return; }
-  fillQueue = buildFillQueue().sort(() => Math.random() - 0.5).slice(0, 20);
+  // Use user's word bank if available, otherwise use built-in HSK vocabulary
+  const sourceWords = words.length > 0 ? words : (HSK_VOCAB[hskLevel] || HSK_VOCAB[1]);
+  fillQueue = buildFillQueue(sourceWords).sort(() => Math.random() - 0.5).slice(0, 20);
   fIdx = 0; fScore = {c:0,w:0}; fAnswered = false;
   showSentence();
 }
 
-function buildFillQueue() {
+function buildFillQueue(sourceWords) {
   const result = [];
-  const theme = detectTheme(words);
 
-  words.forEach(word => {
-    // 1. Exact match: sentences where this word is the answer
-    const exact = DB.filter(s => s.hsk <= hskLevel && s.w === word.char);
+  sourceWords.forEach(word => {
+    // 1. Exact HSK level match: sentences where this word is the answer at the selected level
+    const exact = DB.filter(s => s.hsk === hskLevel && s.w === word.char);
     if (exact.length > 0) {
       exact.slice(0, 2).forEach(h => {
         result.push({ sentence: h.t, answer: word.char, word, translation: h.tr });
@@ -1411,9 +1505,20 @@ function buildFillQueue() {
       return;
     }
 
-    // 2. Sentence contains the character elsewhere — rebuild with blank
+    // 2. Nearby level fallback (±1 level) to maximise sentence pool
+    const nearby = DB.filter(s =>
+      Math.abs(s.hsk - hskLevel) <= 1 && s.w === word.char
+    );
+    if (nearby.length > 0) {
+      nearby.slice(0, 1).forEach(h => {
+        result.push({ sentence: h.t, answer: word.char, word, translation: h.tr });
+      });
+      return;
+    }
+
+    // 3. Sentence contains the character elsewhere — rebuild with blank at same HSK level
     const contains = DB.filter(s =>
-      s.hsk <= hskLevel && s.w !== word.char &&
+      s.hsk === hskLevel && s.w !== word.char &&
       s.t.replace('___', s.w).includes(word.char)
     );
     if (contains.length > 0) {
@@ -1426,7 +1531,7 @@ function buildFillQueue() {
       }
     }
 
-    // 3. Template fallback
+    // 4. Template fallback at the selected HSK level
     const tmArr = TMPL[hskLevel] || TMPL[3];
     const tm = tmArr[Math.floor(Math.random() * tmArr.length)];
     result.push({
