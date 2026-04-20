@@ -508,8 +508,9 @@
         <div class="result-pct" id="res-pct">—</div>
         <div class="result-sub" id="res-sub"></div>
         <div class="result-stars" id="res-stars">⭐</div>
-        <div style="display:flex;gap:12px;justify-content:center;margin-top:24px">
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap">
           <button class="btn btn-red" onclick="startPractice()">再练一次 · Again</button>
+          <button class="btn btn-outline" id="retry-wrong-btn" onclick="retryWrong()" style="display:none">🔁 Повторить ошибки</button>
           <button class="btn btn-outline" onclick="endPractice()">返回</button>
         </div>
       </div>
@@ -829,6 +830,7 @@ function getCharPinyin(ch) {
 let words = JSON.parse(localStorage.getItem('chineseWords') || '[]');
 let practiceMode = 'char-to-meaning';
 let queue = [], qIdx = 0, score = {c:0,w:0}, answered = false, curAns = '', curAnsAll = [], curMode = 'char-to-meaning';
+let wrongQueue = [];
 let hskLevel = 1;
 let fillQueue = [], fIdx = 0, fScore = {c:0,w:0}, fAnswered = false;
 
@@ -1287,7 +1289,7 @@ function selectMode(el, mode) {
 function startPractice() {
   if (!words.length) { alert('请先在词库中添加词汇！'); switchTab('words'); return; }
   queue = [...words].sort(() => Math.random() - 0.5);
-  qIdx = 0; score = {c:0,w:0}; answered = false;
+  qIdx = 0; score = {c:0,w:0}; answered = false; wrongQueue = [];
   document.getElementById('mode-selector').style.display = 'none';
   document.getElementById('practice-area').style.display = 'block';
   document.getElementById('exercise-box').style.display = 'flex';
@@ -1352,13 +1354,17 @@ function showCard() {
     inp.style.fontFamily = "'Noto Serif SC', serif"; inp.style.fontSize = '24px';
     if (w.meaning) { hint.textContent = '💡 ' + w.meaning; hint.style.display = 'block'; }
   } else { // char-to-pinyin
-    document.getElementById('ex-label').textContent = 'Иероглиф → пиньинь цифрами';
+    document.getElementById('ex-label').textContent = 'Иероглиф → пиньинь (слог + цифра тона)';
     pr.textContent = w.char;
-    curAns = syllabicEnd(toneToNum(w.pinyin || ''));
+    const pyNorm = (w.pinyin || '').replace(/\s+/g, '');
+    curAns = syllabicEnd(toneToNum(pyNorm));
     curAnsAll = [curAns];
-    inp.placeholder = 'слог+тон: wo3, cheng2ke4...';
+    inp.placeholder = 'wo3, fei1ji1, wai4guo2ren2...';
     inp.style.fontFamily = "'Noto Sans SC', sans-serif"; inp.style.fontSize = '20px';
-    if (w.meaning) { hint.textContent = '💡 ' + w.meaning; hint.style.display = 'block'; }
+    let hintLines = ['Формат: полный слог + цифра тона каждого иероглифа (例: wai4guo2ren2)'];
+    if (w.meaning) hintLines.unshift('💡 ' + w.meaning);
+    hint.innerHTML = hintLines.join('<br>');
+    hint.style.display = 'block';
   }
   setTimeout(() => inp.focus(), 40);
 }
@@ -1387,6 +1393,7 @@ function checkAnswer() {
     fb.textContent = '✓ Правильно!'; fb.className = 'feedback correct';
   } else {
     score.w++; inp.classList.add('wrong');
+    wrongQueue.push(queue[qIdx]);
     fb.textContent = '✗ Неверно'; fb.className = 'feedback wrong';
     const rev = document.getElementById('ex-answer-reveal');
     const numbered = w.pinyin ? syllabicEnd(toneToNum(w.pinyin)) + ' · ' + w.pinyin : '';
@@ -1409,6 +1416,25 @@ function showResults() {
   document.getElementById('res-pct').textContent = pct + '%';
   document.getElementById('res-sub').textContent = `${score.c} / ${queue.length} 答对了 · Correct`;
   document.getElementById('res-stars').textContent = pct >= 90 ? '⭐⭐⭐' : pct >= 70 ? '⭐⭐' : '⭐';
+  const retryBtn = document.getElementById('retry-wrong-btn');
+  if (retryBtn) {
+    if (wrongQueue.length > 0) {
+      retryBtn.textContent = `🔁 Повторить ошибки (${wrongQueue.length})`;
+      retryBtn.style.display = 'inline-flex';
+    } else {
+      retryBtn.style.display = 'none';
+    }
+  }
+}
+
+function retryWrong() {
+  if (!wrongQueue.length) return;
+  queue = [...wrongQueue].sort(() => Math.random() - 0.5);
+  wrongQueue = [];
+  qIdx = 0; score = {c:0,w:0}; answered = false;
+  document.getElementById('exercise-box').style.display = 'flex';
+  document.getElementById('result-screen').style.display = 'none';
+  showCard();
 }
 
 function endPractice() {
